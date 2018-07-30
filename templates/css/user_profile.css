@@ -14,14 +14,14 @@ ul {
 }
 
 #user {
-  position: static;
   background-color: white;
+  display: inline;
   float: left;
 }
 
 #directory {
-  position: static;
   align: left;
   background-color: white;
-  float:right;
+  display: inline;
+  float: right;
 }
