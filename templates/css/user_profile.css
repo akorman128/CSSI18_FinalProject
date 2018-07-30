@@ -83,6 +83,41 @@ nav {
   height: 440px;
   width: 300px;
 
+  border: black solid 2px;
+}
+
+#withdrawl-header{
+  margin-left: 350px;
+  margin-top: 325px;
+  position: absolute;
+
+  color: black;
+}
+
+#withdrawl-container{
+  margin-left: 350px;
+  margin-top: 350px;
+  width: 73.3%;
+  height: 200px;
+  position: absolute;
+
+  border: black solid 2px;
+}
+
+#donation-header{
+  margin-top: 565px;
+  margin-left: 350px;
+  position: absolute;
+
+  color: black;
+}
+
+#donation-container{
+  margin-left: 350px;
+  margin-top: 590px;
+  width: 73.3%;
+  height: 200px;
+  position: absolute;
 
   border: black solid 2px;
 }
