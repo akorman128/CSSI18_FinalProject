@@ -1,0 +1,27 @@
+title {
+  font-family: Arial;
+  color: royalblue;
+}
+
+h2 {
+  font-family: Arial;
+  color: royalblue;
+}
+
+ul {
+  font-family: Arial;
+  color: black;
+}
+
+#user {
+  position: static;
+  background-color: white;
+  float: left;
+}
+
+#directory {
+  position: static;
+  align: left;
+  background-color: white;
+  float:right;
+}
