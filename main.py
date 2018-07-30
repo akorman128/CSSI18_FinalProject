@@ -21,6 +21,7 @@ class ___Handler(webapp2.RequestHandler):
         template_vars = {
 
         }
+
         results_template = JINJA_ENVIRONMENT.get_template('templates/_______.html')
         self.response.write(results_template.render(template_vars))
 
@@ -29,5 +30,5 @@ app = webapp2.WSGIApplication([
     #this line routes the main url ('/')  - also know as
     #the root route - to the Fortune Handler
     ('/', _____),
-    ('/fortune-results', ___Handler),
+    ('/_____', ___Handler),
 ], debug=True)
