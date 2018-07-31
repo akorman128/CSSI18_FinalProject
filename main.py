@@ -65,11 +65,19 @@ class CreateProjectHandler(webapp2.RequestHandler):
         # Sign in was required, so get user info from Google App Engine
         user = users.get_current_user()
         nickname = user.nickname()
+        logout_url = users.create_logout_url('/')
+        greeting = 'Welcome, {}! (<a href="{}">sign out</a>)'.format(nickname, logout_url)
 
+        # If no account exists, make one
+        if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
+            # create user object
+            new_user = Account(id = user.user_id(), points = 0)
 
+            # update database and returns user key
+            new_user_key = new_user.put()
 
         current_user_account = Account.query(Account.id == user.user_id())
-        print "Hello" + str(current_user_account.fetch(keys_only=True))
+        #print "Hello" + str(current_user_account.fetch(keys_only=True))
         current_user_key = current_user_account.fetch(keys_only=True)[0].string_id()
 
 
