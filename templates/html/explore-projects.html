@@ -2,11 +2,88 @@
 <html>
   <head>
     <title>Explore</title>
+    <link rel="stylesheet" href="../css/explore-style.css"/>
   </head>
+  <!-- Nav bar -->
   <nav>
-    
+    <form>
+      <!-- search bar -->
+      <input id='search' type='search' placeholder='Search Users...'/>
+    </form>
+    <!-- header trable -->
+    <table id='nav-container'>
+      <tr>
+        <td class='nav-button'>
+          Explore
+        </td>
+        <td class='nav-button'>
+          Create
+        </td>
+        <td class='nav-button'>
+          Profile
+        </td>
+        <td class='nav-button'>
+          Settings
+        </td>
+        <td class='nav-button'>
+          <a href="{{logout}}">Logout</a>
+        </td>
+      </tr>
+    </table>
   </nav>
-  <body>
 
+  <body>
+    <div id='query-container'>
+      <table id='category-container'>
+        <tr>
+          <td>
+            Title
+          </td>
+          <td>
+            Date
+          </td>
+          <td>
+            Area:
+            <select name='area' class='user-input' placeholder="Area"/>
+              <option value='santa-monica'>
+                Santa Monica
+              </option>
+              <option value='torrance'>
+                Torrance
+              </option>
+              <option value='Inglewood'>
+                Inglewood
+              </option>
+              <option value='hawthorne'>
+                Hawthorne
+              </option>
+              <option value='culver'>
+                Culver City
+              </option>
+              <option value='beverly-hills'>
+                Beverly Hills
+              </option>
+              <option value='central-la'>
+                Central LA
+              </option>
+              <option value='south-la'>
+                South LA
+              </option>
+              <option value='downtown'>
+                Downtown
+              </option>
+              <option value='south-gate'>
+                South Gate
+              </option>
+              <option value='compton'>
+                Compton
+              </option>
+          </td>
+        </tr>
+      </table>
+      <div id='projects-container'>
+        
+      </div>
+    </div>
   </body>
 </html>
