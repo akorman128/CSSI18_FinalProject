@@ -18,7 +18,7 @@ class Account(ndb.Model):
 # class for Project object, has properties title, date, area, description and user_id
 class Project(ndb.Model):
     title = ndb.StringProperty()
-    date = ndb.DateTimeProperty()
+    date = ndb.DateProperty()
     area = ndb.StringProperty()
     description = ndb.StringProperty()
     user_id = ndb.StringProperty()
@@ -76,7 +76,7 @@ class CreateProjectHandler(webapp2.RequestHandler):
         # description = self.request.get('description')
 
         #queries accounts to find kind object matching current user, fetches key
-        current_user_key = Account.query(Account.id == user.user_id()).fetch(keys_only=True)
+        current_user_account = Account.query(Account.id == user.user_id()).fetch(keys_only=True)[0].string_id()
 
         # creates new project object
         new_project = Project(title = self.request.get('title'), date = self.request.get('date'), area = self.request.get('area'), \
