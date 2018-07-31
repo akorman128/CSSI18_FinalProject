@@ -13,13 +13,13 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 class Account(ndb.Model):
     id = ndb.StringProperty()
     points = ndb.FloatProperty()
-    project_keys = ndb.StringProperty(repeated=True)
 
 class Project(ndb.Model):
     title = ndb.StringProperty()
     date = ndb.DateTimeProperty()
     area = ndb.StringProperty()
     description = ndb.StringProperty()
+    user_id = ndb.StringProperty()
 
 class UserProfileHandler(webapp2.RequestHandler):
     def get(self):
@@ -64,16 +64,17 @@ class CreateProjectHandler(webapp2.RequestHandler):
         area = self.request.get('area')
         description = self.request.get('description')
 
+        current_user_key = Account.query(Account.id == user.user_id(), keys_only=True)
+
         new_project = Project()
         new_project.title = title
         #new_project.date = date
         new_project.area = area
         new_project.description = description
+        new_project.user_id = current_user_key
         new_project_key = new_project.put()
 
-        current_user = Account.query(Account.id == user.user_id())
-        print(current_user.filter(current_user.id)
-        current_user.project_keys = new_project_key
+
 
 #the route mapping
 app = webapp2.WSGIApplication([
