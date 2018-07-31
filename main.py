@@ -77,8 +77,10 @@ class CreateProjectHandler(webapp2.RequestHandler):
             new_user_key = new_user.put()
 
         current_user_account = Account.query(Account.id == user.user_id())
-        #print "Hello" + str(current_user_account.fetch(keys_only=True))
-        current_user_key = current_user_account.fetch(keys_only=True)[0].string_id()
+
+        print current_user_account
+        current_user_key = str(current_user_account.fetch(keys_only=True)[0].id())
+        print current_user_key
 
         # creates new project object
         new_project = Project(title = self.request.get('title'), area = self.request.get('area'), \
@@ -117,10 +119,6 @@ class ProjectViewHandler(webapp2.RequestHandler):
             profile_template = JINJA_ENVIRONMENT.get_template('templates/html/project-view.html')
             # passes variable dictionary
             self.response.write(profile_template.render(template_vars))
-
-
-
-        self.redirect('/user')
 
 class ExploreQueryHandler(webapp2.RequestHandler):
     def get(self):
