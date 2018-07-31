@@ -130,6 +130,8 @@ class ExploreQueryHandler(webapp2.RequestHandler):
         logout_url = users.create_logout_url('/')
         greeting = 'Welcome, {}! (<a href="{}">sign out</a>)'.format(nickname, logout_url)
 
+        
+
         # render template
         profile_template = JINJA_ENVIRONMENT.get_template('templates/html/explore-projects.html')
         # passes variable dictionary

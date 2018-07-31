@@ -51,6 +51,7 @@ nav {
 
 #category-container td{
   border-right: 2px grey solid ;
+  font-weight: bold;
 
   width: 200px;
   padding-top: 5px;
@@ -65,4 +66,13 @@ nav {
 
   color: royalblue;
   border: grey solid 2px;
+}
+
+#projects-container{
+  border-top: black solid 2px;
+  border-bottom: black solid 2px;
+
+  margin-top: -1px;
+  min-height: 200px;
+  max-height: 670px;
 }
