@@ -94,6 +94,7 @@ nav {
   border-radius: 5px;
   border: grey solid 2px;
   transition-duration: .6s;
+  user-select: none;
 }
 
 #search-button:hover{
