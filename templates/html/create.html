@@ -6,49 +6,52 @@
   </head>
   <body>
     <div id='outer-container'>
-      <h1>
-        Create a Time Request
-      </h1> <hr/>
-      <div>
-        <input class='user-input' type="text" placeholder="Title"/> <br/>
-        <input class='user-input' placeholder="Date: mm/dd/yyyy"/> <br/>
-        <select class='user-input' placeholder="Area"/>
-          <option value='santa-monica'>
-            Santa Monica
-          </option>
-          <option value='torrance'>
-            Torrance
-          </option>
-          <option value='Inglewood'>
-            Inglewood
-          </option>
-          <option value='hawthorne'>
-            Hawthorne
-          </option>
-          <option value='culver'>
-            Culver City
-          </option>
-          <option value='beverly-hills'>
-            Beverly Hills
-          </option>
-          <option value='central-la'>
-            Central LA
-          </option>
-          <option value='south-la'>
-            South LA
-          </option>
-          <option value='downtown'>
-            Downtown
-          </option>
-          <option value='south-gate'>
-            South Gate
-          </option>
-          <option value='compton'>
-            Compton
-          </option>
-          <br/>
-        <textarea class='user-input' id='description' placeholder="Description"/></textarea>
-      </div>
-      <button id='post'>Post</button>
+      <form method='post'>
+          <h1>
+            Create a Time Request
+          </h1> <hr/>
+          <form action="/user" method="post">
+            <div>
+              <input class='user-input' type="text" placeholder="Title"/> <br/>
+              <input class='user-input' placeholder="Date: mm/dd/yyyy"/> <br/>
+              <select class='user-input' placeholder="Area"/>
+                <option value='santa-monica'>
+                  Santa Monica
+                </option>
+                <option value='torrance'>
+                  Torrance
+                </option>
+                <option value='Inglewood'>
+                  Inglewood
+                </option>
+                <option value='hawthorne'>
+                  Hawthorne
+                </option>
+                <option value='culver'>
+                  Culver City
+                </option>
+                <option value='beverly-hills'>
+                  Beverly Hills
+                </option>
+                <option value='central-la'>
+                  Central LA
+                </option>
+                <option value='south-la'>
+                  South LA
+                </option>
+                <option value='downtown'>
+                  Downtown
+                </option>
+                <option value='south-gate'>
+                  South Gate
+                </option>
+                <option value='compton'>
+                  Compton
+                </option>
+                <br/>
+              <textarea class='user-input' id='description' placeholder="Description"/></textarea>
+              </div>
+                <button id='post' type="submit"> Post </button>
+            </form>
   </body>
 </html>
