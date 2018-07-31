@@ -81,7 +81,9 @@ class CreateProjectHandler(webapp2.RequestHandler):
             new_user_key = new_user.put()
 
         current_user_account = Account.query(Account.id == user.user_id())
-        current_user_key = current_user_account.fetch(keys_only=True)[0].string_id()
+        print current_user_account
+        current_user_key = str(current_user_account.fetch(keys_only=True)[0].id())
+        print current_user_key
 
         # creates new project object
         new_date = datetime.strptime(self.request.get('date'), '%m/%d/%Y')
@@ -122,7 +124,6 @@ class ProjectViewHandler(webapp2.RequestHandler):
             # passes variable dictionary
             self.response.write(profile_template.render(template_vars))
 
-
 class ExploreQueryHandler(webapp2.RequestHandler):
     def get(self):
         # Sign in was required, so get user info from Google App Engine
@@ -152,6 +153,5 @@ app = webapp2.WSGIApplication([
     #the root route - to the Fortune Handler
     ('/user', UserProfileHandler),
     ('/create', CreateProjectHandler),
-    ('/projectview', ProjectViewHandler),
     ('/explore', ExploreQueryHandler),
 ], debug=True)
