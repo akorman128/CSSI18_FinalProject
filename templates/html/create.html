@@ -12,9 +12,9 @@
           </h1> <hr/>
           <form action="/user" method="post">
             <div>
-              <input class='user-input' type="text" placeholder="Title"/> <br/>
-              <input class='user-input' placeholder="Date: mm/dd/yyyy"/> <br/>
-              <select class='user-input' placeholder="Area"/>
+              <input name='title' class='user-input' type="text" placeholder="Title"/> <br/>
+              <input name='date' class='user-input' placeholder="Date: mm/dd/yyyy"/> <br/>
+              <select name='area' class='user-input' placeholder="Area"/>
                 <option value='santa-monica'>
                   Santa Monica
                 </option>
@@ -49,7 +49,7 @@
                   Compton
                 </option>
                 <br/>
-              <textarea class='user-input' id='description' placeholder="Description"/></textarea>
+              <textarea name='description' class='user-input' id='description' placeholder="Description"/></textarea>
               </div>
                 <button id='post' type="submit"> Post </button>
             </form>
