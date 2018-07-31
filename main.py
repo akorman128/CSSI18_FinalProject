@@ -125,6 +125,28 @@ class ProjectViewHandler(webapp2.RequestHandler):
 
         self.redirect('/user')
 
+class ExploreQueryHandler(webapp2.RequestHandler):
+    def get(self):
+        # Sign in was required, so get user info from Google App Engine
+        user = users.get_current_user()
+        nickname = user.nickname()
+        logout_url = users.create_logout_url('/')
+        greeting = 'Welcome, {}! (<a href="{}">sign out</a>)'.format(nickname, logout_url)
+
+        # gets list of project
+        list_projects = Project.query().fetch()
+        print(list_projects)
+
+        template_vars = {
+            'list_projects' : list_projects,
+        }
+
+        # render template
+        profile_template = JINJA_ENVIRONMENT.get_template('templates/html/explore-projects.html')
+        # passes variable dictionary
+        self.response.write(profile_template.render(template_vars))
+
+
 
 #the route mapping
 app = webapp2.WSGIApplication([
@@ -132,4 +154,5 @@ app = webapp2.WSGIApplication([
     #the root route - to the Fortune Handler
     ('/user', UserProfileHandler),
     ('/create', CreateProjectHandler),
+    ('/explore', ExploreQueryHandler),
 ], debug=True)
