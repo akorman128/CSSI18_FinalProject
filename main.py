@@ -123,9 +123,6 @@ class ProjectViewHandler(webapp2.RequestHandler):
             self.response.write(profile_template.render(template_vars))
 
 
-
-        self.redirect('/user')
-
 class ExploreQueryHandler(webapp2.RequestHandler):
     def get(self):
         # Sign in was required, so get user info from Google App Engine
