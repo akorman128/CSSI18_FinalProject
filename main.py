@@ -158,7 +158,6 @@ class ExploreQueryHandler(webapp2.RequestHandler):
     def post(self):
         # gets area defined in selector in html
         area = self.request.get('area')
-        print(area)
         # if area == all, set list_projects to all projects in db
         if (area == 'all'):
             list_projects = Project.query().fetch()
@@ -171,10 +170,8 @@ class ExploreQueryHandler(webapp2.RequestHandler):
         template_vars = {
             'list_projects' : list_projects,
         }
-
         profile_template = JINJA_ENVIRONMENT.get_template('templates/html/explore-projects.html')
         self.response.write(profile_template.render(template_vars))
-
 
 
 

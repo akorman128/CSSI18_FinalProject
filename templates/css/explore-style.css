@@ -96,7 +96,7 @@ nav {
 
 #projects-container tr{
   border-bottom: black solid 2px;
-
+  cursor: pointer;
 }
 
 #search-button{
