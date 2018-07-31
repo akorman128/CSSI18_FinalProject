@@ -24,6 +24,10 @@ class Project(ndb.Model):
     description = ndb.StringProperty()
     user_id = ndb.StringProperty()
 
+class WelcomeHandler(webapp2.RequestHandler):
+    def get(self):
+        self.redirect('/user')
+
 class UserProfileHandler(webapp2.RequestHandler):
     """ This is used for the "user profile" page"""
     def get(self):
@@ -178,6 +182,7 @@ class ExploreQueryHandler(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     #this line routes the main url ('/')  - also know as
     #the root route - to the Fortune Handler
+    ('/', WelcomeHandler),
     ('/user', UserProfileHandler),
     ('/create', CreateProjectHandler),
     ('/explore', ExploreQueryHandler),
