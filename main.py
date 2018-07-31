@@ -70,6 +70,11 @@ class CreateProjectHandler(webapp2.RequestHandler):
         nickname = user.nickname()
 
 
+<<<<<<< HEAD
+        current_user_account = Account.query(Account.id == user.user_id())
+        print "Hello" + str(current_user_account.fetch(keys_only=True))
+        current_user_key = current_user_account.fetch(keys_only=True)[0].string_id()
+=======
         # title = self.request.get('title')
         # date = self.request.get('date')
         # area = self.request.get('area')
@@ -77,6 +82,7 @@ class CreateProjectHandler(webapp2.RequestHandler):
 
         #queries accounts to find kind object matching current user, fetches key
         current_user_key = Account.query(Account.id == user.user_id()).fetch(keys_only=True)
+>>>>>>> 0a09b3c95a371f9f17c4a661d1bb9d306abc3136
 
         # creates new project object
         new_project = Project(title = self.request.get('title'), date = self.request.get('date') area = self.request.get('area') \
