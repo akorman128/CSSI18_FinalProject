@@ -93,9 +93,9 @@ nav {
 }
 
 #nav-container{
-  margin-left: 60%;
+  margin-left: 36%;
   position: absolute;
-  margin-top: 40px;
+  margin-top: 20px;
   z-index: 1;
 
   font-weight: bold;
