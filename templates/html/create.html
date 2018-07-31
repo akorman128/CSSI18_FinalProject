@@ -6,11 +6,10 @@
   </head>
   <body>
     <div id='outer-container'>
-      <form method='post'>
+      <form target='_blank' action='/user' method='post'>
           <h1>
             Create a Time Request
           </h1> <hr/>
-          <form action="/user" method="post">
             <div>
               <input name='title' class='user-input' type="text" placeholder="Title"/> <br/>
               <input name='date' class='user-input' placeholder="Date: mm/dd/yyyy"/> <br/>
@@ -52,6 +51,6 @@
               <textarea name='description' class='user-input' id='description' placeholder="Description"/></textarea>
               </div>
                 <button id='post' type="submit"> Post </button>
-            </form>
+          </form>
   </body>
 </html>
