@@ -23,8 +23,8 @@ class Project(ndb.Model):
     description = ndb.StringProperty()
     user_id = ndb.StringProperty()
 
-# called on user page
 class UserProfileHandler(webapp2.RequestHandler):
+    """ This is used for the "user profile" page"""
     def get(self):
         # Sign in was required, so get user info from Google App Engine
         user = users.get_current_user()
@@ -33,14 +33,11 @@ class UserProfileHandler(webapp2.RequestHandler):
         greeting = 'Welcome, {}! (<a href="{}">sign out</a>)'.format(nickname, logout_url)
 
         # If no account exists, make one
-        if Account.query(Account.id == user.user_id()) is None:
+        if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
             # create user object
-            new_user = Accountd(id = user.user_id(), points = 0)
+            new_user = Account(id = user.user_id(), points = 0)
 
-            # new_user.id = user.user_id()
-            # new_user.points = 0
-
-            # returns user key
+            # update database and returns user key
             new_user_key = new_user.put()
 
         # Variables to pass into the user_profile.html page
@@ -69,12 +66,10 @@ class CreateProjectHandler(webapp2.RequestHandler):
         user = users.get_current_user()
         nickname = user.nickname()
 
-
-<<<<<<< HEAD
         current_user_account = Account.query(Account.id == user.user_id())
         print "Hello" + str(current_user_account.fetch(keys_only=True))
         current_user_key = current_user_account.fetch(keys_only=True)[0].string_id()
-=======
+
         # title = self.request.get('title')
         # date = self.request.get('date')
         # area = self.request.get('area')
@@ -82,10 +77,9 @@ class CreateProjectHandler(webapp2.RequestHandler):
 
         #queries accounts to find kind object matching current user, fetches key
         current_user_key = Account.query(Account.id == user.user_id()).fetch(keys_only=True)
->>>>>>> 0a09b3c95a371f9f17c4a661d1bb9d306abc3136
 
         # creates new project object
-        new_project = Project(title = self.request.get('title'), date = self.request.get('date') area = self.request.get('area') \
+        new_project = Project(title = self.request.get('title'), date = self.request.get('date'), area = self.request.get('area'), \
         description = self.request.get('description'), user_id = current_user_key )
         # new_project.title = title
         # new_project.date = date
