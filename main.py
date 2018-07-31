@@ -4,6 +4,7 @@ import os
 import random
 from google.appengine.api import users
 from google.appengine.ext import ndb
+from datetime import datetime
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -18,7 +19,7 @@ class Account(ndb.Model):
 # class for Project object, has properties title, date, area, description and user_id
 class Project(ndb.Model):
     title = ndb.StringProperty()
-    #date = ndb.DateProperty()
+    date = ndb.DateProperty()
     area = ndb.StringProperty()
     description = ndb.StringProperty()
     user_id = ndb.StringProperty()
@@ -80,11 +81,11 @@ class CreateProjectHandler(webapp2.RequestHandler):
             new_user_key = new_user.put()
 
         current_user_account = Account.query(Account.id == user.user_id())
-        #print "Hello" + str(current_user_account.fetch(keys_only=True))
         current_user_key = current_user_account.fetch(keys_only=True)[0].string_id()
 
         # creates new project object
-        new_project = Project(title = self.request.get('title'), area = self.request.get('area'), \
+        new_date = datetime.strptime(self.request.get('date'), '%m/%d/%Y')
+        new_project = Project(title = self.request.get('title'), date = new_date, area = self.request.get('area'), \
         description = self.request.get('description'), user_id = current_user_key )
 
         # returns key
