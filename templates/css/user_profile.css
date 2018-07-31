@@ -1,27 +1,123 @@
-title {
-  font-family: Arial;
-  color: royalblue;
+body{
+  font-family:  arial;
+  color: cornflowerblue;
 }
 
-h2 {
-  font-family: Arial;
-  color: royalblue;
+nav {
+  background-color: royalblue;
+  border-bottom: grey 4px solid;
+
+  width: 100%;
+  height: 70px;
+  position: fixed;
+}
+/* nav bar style */
+#search {
+  position:absolute;
+  margin-top: 25px;
+  margin-left: 30px;
+  height: 100px;
 }
 
-ul {
-  font-family: Arial;
+#nav-container{
+  margin-left: 60%;
+  position: absolute;
+  margin-top: 40px;
+  z-index: 1;
+
+  font-weight: bold;
+  color: white;
+}
+
+.nav-button{
+  font-size: 20px;
+  text-align: center;
+  width: 100px;
+}
+
+.nav-button:hover{
+  background-color: cornflowerblue;
+}
+/* style for pertinent user info */
+#header-container{
+  margin-top: 100px;
+  margin-left: 15px;
+  position: absolute;
+  width: 96.5%;
+  height: 200px;
+  border: black solid 2px;
+}
+
+#circle-container {
+  background: cornflowerblue;
+  width: 150px;
+  height: 150px;
+  margin-top: 25px;
+  margin-left: 350px;
+  border-radius: 75px;
+  border: 2px solid lightblue; }
+
+#user-info{
+  margin-top: -130px;
+  margin-left: 40%;
+  border:black solid 2px;
+  width: 300px;
+
+  text-align: center;
+  background-color: lightgrey;
+}
+
+/* Style bio header + container */
+#bio-header{
+  margin-left: 15px;
+  margin-top: 320px;
+  position: absolute;
+
   color: black;
 }
 
-#user {
-  background-color: white;
-  display: inline;
-  float: left;
+#bio-container{
+  margin-left: 15px;
+  margin-top: 350px;
+  position: absolute;
+  height: 440px;
+  width: 300px;
+
+  border: black solid 2px;
 }
 
-#directory {
-  align: left;
-  background-color: white;
-  display: inline;
-  float: right;
+#withdrawl-header{
+  margin-left: 350px;
+  margin-top: 325px;
+  position: absolute;
+
+  color: black;
+}
+
+#withdrawl-container{
+  margin-left: 350px;
+  margin-top: 350px;
+  width: 73.3%;
+  height: 200px;
+  position: absolute;
+
+  border: black solid 2px;
+}
+
+#donation-header{
+  margin-top: 565px;
+  margin-left: 350px;
+  position: absolute;
+
+  color: black;
+}
+
+#donation-container{
+  margin-left: 350px;
+  margin-top: 590px;
+  width: 73.3%;
+  height: 200px;
+  position: absolute;
+
+  border: black solid 2px;
 }

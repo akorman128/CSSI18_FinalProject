@@ -8,27 +8,53 @@
 
   <body>
 
-    <div id='user'>
-    <h2>User Info</h2>
-    <img height="300px" src="https://storage.googleapis.com/idx-acnt-gs.ihouseprd.com/AR653155/file_manager/PAY-IT-FORWARD.jpg" alt="logo">
-      <h3>Username: {{username}}</h3>
-      <h3>You have {{points}} TimePoints</h3>
-  </div>
+    <nav>
+      <form>
+        <!-- search bar -->
+        <input id='search' type='search' placeholder='Search Users...'/>
+      </form>
+      <!-- header trable -->
+      <table id='nav-container'>
+        <tr>
+          <td class='nav-button'>
+            Explore
+          </td>
+          <td class='nav-button'>
+            Create
+          </td>
+          <td class='nav-button'>
+            Profile
+          </td>
+          <td class='nav-button'>
+            Settings
+          </td>
+        </tr>
+      </table>
+    </nav>
 
-  <div id='directory'>
-    <h2>Site Directory</h2>
-    <img height="300px" src="https://www.maketecheasier.com/assets/uploads/2017/07/google-maps-alternatives-featured.jpg" alt="logo">
-    <ul>
-      <li><a href="{{explore_page}}">Find projects to donate your time to!</a></li>
-      <li><a href="{{project_page}}">See your projects!</a></li>
-    </ul>
-  </div>
+<!-- Includes user info and time balance -->
 
-  <div>
-    <p>
-      hi
-    </p>
-  </div>
+    <div id='header-container' >
+      <div id='circle-container'>
+      </div>
+      <div id='user-info'>
+        <h3> Name McName III</p>
+        <p> Time Balance | {{hours}} </p>
+      </div>
+    </div>
+
+<!-- bio -->
+    <h3 id='bio-header'>Bio</h3>
+    <div id='bio-container'>
+    </div>
+
+    <h3 id='withdrawl-header'>My Withdrawls</h3>
+    <div id='withdrawl-container'>
+    </div>
+
+    <h3 id='donation-header'>My Donations</h3>
+    <div id='donation-container'>
+    </div>
 
   </body>
 </html>
