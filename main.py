@@ -53,6 +53,9 @@ class UserProfileHandler(webapp2.RequestHandler):
         # passes variable dictionary
         self.response.write(profile_template.render(template_vars))
 
+    def post(self):
+        self.redirect('/user')
+
 
         #calls handler on /create page
 class CreateProjectHandler(webapp2.RequestHandler):
