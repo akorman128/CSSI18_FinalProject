@@ -7,6 +7,8 @@ threadsafe: yes
 handlers:
 - url: /static
   static_dir: static
+- url: /css
+  static_dir: templates/css
 
 #static directories should go ABOVE the catch all url (.*)
 - url: .*
