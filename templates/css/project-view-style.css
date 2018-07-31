@@ -6,6 +6,22 @@
 
 }
 
+body{
+  font-family:  'Hind Vadodara';
+  color: cornflowerblue;
+}
+
+
+a {
+  color: white;
+  text-decoration: none;
+
+}
+
+a:hover {
+  background-color: cornflowerblue;
+  color: white;
+}
 
 nav {
   background-color: royalblue;

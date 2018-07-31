@@ -1,7 +1,21 @@
-body{
-    font-family: arial;
-    color: grey;
+@import url(https://fonts.googleapis.com/css?family=Hind+Vadodara);
 
+body{
+  font-family:  'Hind Vadodara';
+  color: cornflowerblue;
+}
+
+
+
+a {
+  color: white;
+  text-decoration: none;
+
+}
+
+a:hover {
+  background-color: cornflowerblue;
+  color: white;
 }
 
 nav {
@@ -30,7 +44,7 @@ nav {
 }
 
 .nav-button{
-  font-family: arial;
+  font-family: 'Hind Vadodara';
   font-size: 20px;
   text-align: center;
   width: 100px;
