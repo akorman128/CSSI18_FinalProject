@@ -88,7 +88,38 @@ class CreateProjectHandler(webapp2.RequestHandler):
         # returns key
         new_project_key = new_project.put()
 
+class ProjectViewHandler(webapp2.RequestHandler):
+    def get(self):
+        # Sign in was required, so get user info from Google App Engine
+        user = users.get_current_user()
+        nickname = user.nickname()
+        logout_url = users.create_logout_url('/')
+        greeting = 'Welcome, {}! (<a href="{}">sign out</a>)'.format(nickname, logout_url)
 
+        # If no account exists, make one
+        if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
+            # create user object
+            new_user = Account(id = user.user_id(), points = 0)
+
+            # update database and returns user key
+            new_user_key = new_user.put()
+
+            # Variables to pass into the project-view.html page
+            template_vars = {
+                'project_name': nickname,
+                'logout': logout_url,
+                'logout_url': logout_url,
+                'points': Account.query(Account.id == user.user_id()).fetch()[0].points
+            }
+
+            # render template
+            profile_template = JINJA_ENVIRONMENT.get_template('templates/html/project-view.html')
+            # passes variable dictionary
+            self.response.write(profile_template.render(template_vars))
+
+
+    def post(self):
+        pass
 
 #the route mapping
 app = webapp2.WSGIApplication([
