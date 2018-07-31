@@ -132,4 +132,5 @@ app = webapp2.WSGIApplication([
     #the root route - to the Fortune Handler
     ('/user', UserProfileHandler),
     ('/create', CreateProjectHandler),
+    ('/projectview', ProjectViewHandler),
 ], debug=True)
