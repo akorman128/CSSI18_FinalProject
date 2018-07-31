@@ -82,20 +82,23 @@
                 Compton
               </option>
           </td>
+          <td>
+            <button id='search-button'> Search </button>
+          </td>
         </tr>
       </table>
       <div id='projects-container'>
         <table>
 
         {% for project in list_projects %}
-              <tr>
-                <td>
+              <tr >
+                <td class='query-results'>
                   {{project.title}}
                 </td>
-                <td>
+                <td class='query-results'>
                   {{project.date}}
                 </td>
-                <td>
+                <td class='query-results'>
                   {{project.area}}
                 </td>
               </tr>
