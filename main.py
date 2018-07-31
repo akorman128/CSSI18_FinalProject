@@ -110,17 +110,16 @@ class ProjectViewHandler(webapp2.RequestHandler):
             new_user_key = new_user.put()
 
             # Variables to pass into the project-view.html page
-            template_vars = {
-                'project_name': nickname,
+        template_vars = {
+                'nickname': nickname,
                 'logout': logout_url,
-                'logout_url': logout_url,
                 'points': Account.query(Account.id == user.user_id()).fetch()[0].points
             }
 
             # render template
-            profile_template = JINJA_ENVIRONMENT.get_template('templates/html/project-view.html')
-            # passes variable dictionary
-            self.response.write(profile_template.render(template_vars))
+        profile_template = JINJA_ENVIRONMENT.get_template('templates/html/project-view.html')
+        # passes variable dictionary
+        self.response.write(profile_template.render(template_vars))
 
 
 class ExploreQueryHandler(webapp2.RequestHandler):
