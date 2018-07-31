@@ -23,8 +23,8 @@ class Project(ndb.Model):
     description = ndb.StringProperty()
     user_id = ndb.StringProperty()
 
-# called on user page
 class UserProfileHandler(webapp2.RequestHandler):
+    """ This is used for the "user profile" page"""
     def get(self):
         # Sign in was required, so get user info from Google App Engine
         user = users.get_current_user()
@@ -37,8 +37,7 @@ class UserProfileHandler(webapp2.RequestHandler):
             # create user object
             new_user = Account(id = user.user_id(), points = 0)
 
-
-            # returns user key
+            # update database and returns user key
             new_user_key = new_user.put()
 
         # Variables to pass into the user_profile.html page
@@ -66,6 +65,7 @@ class CreateProjectHandler(webapp2.RequestHandler):
         # Sign in was required, so get user info from Google App Engine
         user = users.get_current_user()
         nickname = user.nickname()
+
 
 
         current_user_account = Account.query(Account.id == user.user_id())
