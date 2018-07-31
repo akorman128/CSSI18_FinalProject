@@ -56,8 +56,7 @@ class CreateProjectHandler(webapp2.RequestHandler):
         # Sign in was required, so get user info from Google App Engine
         user = users.get_current_user()
         nickname = user.nickname()
-        logout_url = users.create_logout_url('/')
-        greeting = 'Welcome, {}! (<a href="{}">sign out</a>)'.format(nickname, logout_url)
+    
 
         title = self.request.get('title')
         #date = self.request.get('date')
