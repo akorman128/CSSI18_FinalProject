@@ -1,14 +1,22 @@
+@import url(https://fonts.googleapis.com/css?family=Hind+Vadodara);
+
+.centered {
+  margin-left: 300px;
+  margin-right: auto;
+
+}
+
+
 nav {
   background-color: royalblue;
   border-bottom: grey 4px solid;
-
   width: 100%;
   height: 70px;
-  position: fixed;
+  position: absolute;
 }
 /* nav bar style */
 #search {
-  position:absolute;
+  position: absolute;
   margin-top: 25px;
   margin-left: 30px;
   height: 100px;
@@ -24,7 +32,7 @@ nav {
 }
 
 .nav-button{
-  font-family: arial;
+  font-family: 'Hind Vadodara';
   font-size: 20px;
   text-align: center;
   width: 100px;
@@ -37,7 +45,7 @@ nav {
 #header-container{
   margin-top: 100px;
   position: absolute;
-  width: 100%;
+  width: 900px;
   height: 200px;
   border: black solid 2px;
 }
@@ -50,23 +58,24 @@ nav {
     height: 100px;
 } */
 #circle-container {
-  background: cornflowerblue;
+  background: #6A92D8;
   width: 150px;
   height: 150px;
   margin-top: 25px;
   margin-left: 40px;
   border-radius: 75px;
-  border: 2px solid lightblue; }
+  border: 2px solid #6A92D8; }
 
 #proj_name {
   color: black;
-  font-family: sans-serif;
+  font-family: 'Hind Vadodara';
   font-size: 35px;
   width: 100%;
   height: 100px;
   position: absolute;
   text-align: center;
   margin-top: 50px;
+  margin-left: 55px;
 }
 
 
@@ -82,23 +91,64 @@ nav {
 }
 
 #description {
-  color: darkblue;
-  font-family: sans-serif;
+  color: #6A92D8;
+  font-family: 'Hind Vadodara';
   position: absolute;
   margin-top: 40px;
-  text-shadow: 1px 1px lightblue;
+  text-shadow: 1px 1px darkgrey;
 }
 
 #description_container {
-  background: cornflowerblue;
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
   position: absolute;
-  align-self: center;
   width: 100%;
-  height: 500px;
-  border: 2px;
+  height: 200px;
   margin-top: 80px;
 }
 
 p {
   position: absolute;
+  margin-left: 10px;
+}
+
+#requirements {
+  color: #6A92D8;
+  font-family: 'Hind Vadodara';
+  position: absolute;
+  margin-top: 300px;
+  text-shadow: 1px 1px darkgrey;
+}
+
+#requirements_container {
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  margin-top: 340px;
+}
+
+#donate_button {
+  color: black;
+
+}
+
+.centered_container {
+  width: 100px;
+  height:100px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: transparent;
+  position: absolute;
+  margin-top: 850px;
+  /* margin-left: center; */
+}
+
+button {
+  width: 150px;
+  height: 40px;
+  border-radius: 20px;
 }
