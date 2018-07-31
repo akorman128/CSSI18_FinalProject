@@ -4,7 +4,6 @@ import os
 import random
 from google.appengine.api import users
 from google.appengine.ext import ndb
-from datetime import datetime
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -19,7 +18,7 @@ class Account(ndb.Model):
 # class for Project object, has properties title, date, area, description and user_id
 class Project(ndb.Model):
     title = ndb.StringProperty()
-    date = ndb.DateProperty()
+    #date = ndb.DateProperty()
     area = ndb.StringProperty()
     description = ndb.StringProperty()
     user_id = ndb.StringProperty()
@@ -54,9 +53,6 @@ class UserProfileHandler(webapp2.RequestHandler):
         # passes variable dictionary
         self.response.write(profile_template.render(template_vars))
 
-    def post(self):
-        self.redirect('/user')
-
 
         #calls handler on /create page
 class CreateProjectHandler(webapp2.RequestHandler):
@@ -81,13 +77,13 @@ class CreateProjectHandler(webapp2.RequestHandler):
             new_user_key = new_user.put()
 
         current_user_account = Account.query(Account.id == user.user_id())
+
         print current_user_account
         current_user_key = str(current_user_account.fetch(keys_only=True)[0].id())
         print current_user_key
 
         # creates new project object
-        new_date = datetime.strptime(self.request.get('date'), '%m/%d/%Y')
-        new_project = Project(title = self.request.get('title'), date = new_date, area = self.request.get('area'), \
+        new_project = Project(title = self.request.get('title'), area = self.request.get('area'), \
         description = self.request.get('description'), user_id = current_user_key )
 
         # returns key
@@ -132,6 +128,15 @@ class ExploreQueryHandler(webapp2.RequestHandler):
         logout_url = users.create_logout_url('/')
         greeting = 'Welcome, {}! (<a href="{}">sign out</a>)'.format(nickname, logout_url)
 
+        # If no account exists, make one
+        if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
+            # create user object
+            new_user = Account(id = user.user_id(), points = 0)
+
+            # update database and returns user key
+            new_user_key = new_user.put()
+
+
         # gets list of project
         list_projects = Project.query().fetch()
         print(list_projects)
@@ -144,6 +149,27 @@ class ExploreQueryHandler(webapp2.RequestHandler):
         profile_template = JINJA_ENVIRONMENT.get_template('templates/html/explore-projects.html')
         # passes variable dictionary
         self.response.write(profile_template.render(template_vars))
+
+    def post(self):
+        # gets area defined in selector in html
+        area = self.request.get('area')
+        print(area)
+        # if area == all, set list_projects to all projects in db
+        if (area == 'all'):
+            list_projects = Project.query().fetch()
+            print(list_projects)
+        else:
+        # else only show projects specified with area selected
+            list_projects = Project.query(Project.area == area).fetch()
+            print(list_projects)
+
+        template_vars = {
+            'list_projects' : list_projects,
+        }
+
+        profile_template = JINJA_ENVIRONMENT.get_template('templates/html/explore-projects.html')
+        self.response.write(profile_template.render(template_vars))
+
 
 
 
