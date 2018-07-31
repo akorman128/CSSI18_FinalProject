@@ -86,9 +86,7 @@ class CreateProjectHandler(webapp2.RequestHandler):
 
         # returns key
         new_project_key = new_project.put()
-        print "doneddd"
-
-
+        self.redirect('/user')
 
 #the route mapping
 app = webapp2.WSGIApplication([
