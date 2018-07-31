@@ -45,6 +45,9 @@
           <td>
             Area:
             <select name='area' class='user-input' placeholder="Area"/>
+              <option value= 'all'>
+                All
+              </option>
               <option value='santa-monica'>
                 Santa Monica
               </option>
@@ -82,7 +85,22 @@
         </tr>
       </table>
       <div id='projects-container'>
-        
+        <table>
+
+        {% for project in list_projects %}
+              <tr>
+                <td>
+                  {{project.title}}
+                </td>
+                <td>
+                  {{project.date}}
+                </td>
+                <td>
+                  {{project.area}}
+                </td>
+              </tr>
+        {% endfor %}
+        </table>
       </div>
     </div>
   </body>

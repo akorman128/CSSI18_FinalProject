@@ -130,12 +130,18 @@ class ExploreQueryHandler(webapp2.RequestHandler):
         logout_url = users.create_logout_url('/')
         greeting = 'Welcome, {}! (<a href="{}">sign out</a>)'.format(nickname, logout_url)
 
-        
+        # gets list of project
+        list_projects = Project.query().fetch()
+        print(list_projects)
+
+        template_vars = {
+            'list_projects' : list_projects,
+        }
 
         # render template
         profile_template = JINJA_ENVIRONMENT.get_template('templates/html/explore-projects.html')
         # passes variable dictionary
-        self.response.write(profile_template.render())
+        self.response.write(profile_template.render(template_vars))
 
 
 
