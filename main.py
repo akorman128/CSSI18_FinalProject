@@ -2,6 +2,7 @@ import webapp2
 import jinja2
 import os
 import random
+import time
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
@@ -88,7 +89,8 @@ class CreateProjectHandler(webapp2.RequestHandler):
 
         # returns key
         new_project_key = new_project.put()
-        #self.redirect('/user')
+        #time.sleep(10)
+        self.redirect('/user')
 
 
 class ProjectViewHandler(webapp2.RequestHandler):
