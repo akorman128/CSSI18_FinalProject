@@ -10,10 +10,12 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+# class for user  object, had properties ID and points
 class Account(ndb.Model):
     id = ndb.StringProperty()
     points = ndb.FloatProperty()
 
+# class for Project object, has properties title, date, area, description and user_id
 class Project(ndb.Model):
     title = ndb.StringProperty()
     date = ndb.DateTimeProperty()
@@ -21,6 +23,7 @@ class Project(ndb.Model):
     description = ndb.StringProperty()
     user_id = ndb.StringProperty()
 
+# called on user page
 class UserProfileHandler(webapp2.RequestHandler):
     def get(self):
         # Sign in was required, so get user info from Google App Engine
@@ -31,9 +34,13 @@ class UserProfileHandler(webapp2.RequestHandler):
 
         # If no account exists, make one
         if Account.query(Account.id == user.user_id()) is None:
-            new_user = Account()
-            new_user.id = user.user_id()
-            new_user.points = 0
+            # create user object
+            new_user = Accountd(id = user.user_id(), points = 0)
+
+            # new_user.id = user.user_id()
+            # new_user.points = 0
+
+            # returns user key
             new_user_key = new_user.put()
 
         # Variables to pass into the user_profile.html page
@@ -44,11 +51,16 @@ class UserProfileHandler(webapp2.RequestHandler):
             'points': Account.query(Account.id == user.user_id()).fetch()[0].points
         }
 
+        # render template
         profile_template = JINJA_ENVIRONMENT.get_template('templates/html/user_profile.html')
+        # passes variable dictionary
         self.response.write(profile_template.render(template_vars))
 
+
+        #calls handler on /create page
 class CreateProjectHandler(webapp2.RequestHandler):
     def get(self):
+        # renders create page
         create_template = JINJA_ENVIRONMENT.get_template('templates/html/create.html')
         self.response.write(create_template.render())
 
@@ -56,22 +68,26 @@ class CreateProjectHandler(webapp2.RequestHandler):
         # Sign in was required, so get user info from Google App Engine
         user = users.get_current_user()
         nickname = user.nickname()
-        logout_url = users.create_logout_url('/')
-        greeting = 'Welcome, {}! (<a href="{}">sign out</a>)'.format(nickname, logout_url)
 
-        title = self.request.get('title')
-        #date = self.request.get('date')
-        area = self.request.get('area')
-        description = self.request.get('description')
 
+        # title = self.request.get('title')
+        # date = self.request.get('date')
+        # area = self.request.get('area')
+        # description = self.request.get('description')
+
+        #queries accounts to find kind object matching current user, fetches key
         current_user_key = Account.query(Account.id == user.user_id()).fetch(keys_only=True)
 
-        new_project = Project()
-        new_project.title = title
-        #new_project.date = date
-        new_project.area = area
-        new_project.description = description
-        new_project.user_id = current_user_key
+        # creates new project object
+        new_project = Project(title = self.request.get('title'), date = self.request.get('date') area = self.request.get('area') \
+        description = self.request.get('description'), user_id = current_user_key )
+        # new_project.title = title
+        # new_project.date = date
+        # new_project.area = area
+        # new_project.description = description
+        # new_project.user_id = current_user_key
+
+        # returns key
         new_project_key = new_project.put()
 
 
