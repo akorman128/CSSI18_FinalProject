@@ -64,7 +64,7 @@ class CreateProjectHandler(webapp2.RequestHandler):
         area = self.request.get('area')
         description = self.request.get('description')
 
-        current_user_key = Account.query(Account.id == user.user_id(), keys_only=True)
+        current_user_key = Account.query(Account.id == user.user_id()).fetch(keys_only=True)
 
         new_project = Project()
         new_project.title = title
