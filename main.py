@@ -179,4 +179,5 @@ app = webapp2.WSGIApplication([
     ('/user', UserProfileHandler),
     ('/create', CreateProjectHandler),
     ('/explore', ExploreQueryHandler),
+    ('/projectview', ProjectViewHandler)
 ], debug=True)
