@@ -12,6 +12,23 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+def getUserAccount():
+    # Sign in was required, so get user info from Google App Engine
+    user = users.get_current_user()
+    nickname = user.nickname()
+    logout_url = users.create_logout_url('/')
+    greeting = 'Welcome, {}! (<a href="{}">sign out</a>)'.format(nickname, logout_url)
+
+    # If no account exists, make one
+    if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
+        # create user object
+        new_user = Account(id = user.user_id(), points = 0, name = nickname)
+        # update database and returns user key
+        new_user_key = new_user.put()
+
+    return user, nickname, logout_url, greeting
+
+
 # class for user  object, had properties ID and points
 class Account(ndb.Model):
     id = ndb.StringProperty()
@@ -25,6 +42,7 @@ class Project(ndb.Model):
     area = ndb.StringProperty()
     description = ndb.StringProperty()
     user_id = ndb.StringProperty()
+    time_requested = FloatProperty()
 
 class WelcomeHandler(webapp2.RequestHandler):
     """ If user goes to the / domain, redirect to user profile """
@@ -33,18 +51,8 @@ class WelcomeHandler(webapp2.RequestHandler):
 
 class UserProfileHandler(webapp2.RequestHandler):
     def get(self):
-        # Sign in was required, so get user info from Google App Engine
-        user = users.get_current_user()
-        nickname = user.nickname()
-        logout_url = users.create_logout_url('/')
-        greeting = 'Welcome, {}! (<a href="{}">sign out</a>)'.format(nickname, logout_url)
 
-        # If no account exists, make one
-        if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
-            # create user object
-            new_user = Account(id = user.user_id(), points = 0, name = nickname)
-            # update database and returns user key
-            new_user_key = new_user.put()
+        user, nickname, logout_url, greeting = getUserAccount()
 
         # Variables to pass into the user_profile.html page
         template_vars = {
@@ -67,19 +75,7 @@ class CreateProjectHandler(webapp2.RequestHandler):
         self.response.write(create_template.render())
 
     def post(self):
-        # Sign in was required, so get user info from Google App Engine
-        user = users.get_current_user()
-        nickname = user.nickname()
-        logout_url = users.create_logout_url('/')
-        greeting = 'Welcome, {}! (<a href="{}">sign out</a>)'.format(nickname, logout_url)
-
-        # If no account exists, make one
-        if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
-            # create user object
-            new_user = Account(id = user.user_id(), points = 0, name = nickname)
-
-            # update database and returns user key
-            new_user_key = new_user.put()
+        user, nickname, logout_url, greeting = getUserAccount()
 
         # find user account that matches the current user's id
         current_user_account = Account.query(Account.id == user.user_id())
@@ -101,18 +97,7 @@ class CreateProjectHandler(webapp2.RequestHandler):
 
 class ProjectViewHandler(webapp2.RequestHandler):
     def get(self):
-        # Sign in was required, so get user info from Google App Engine
-        user = users.get_current_user()
-        nickname = user.nickname()
-        logout_url = users.create_logout_url('/')
-        greeting = 'Welcome, {}! (<a href="{}">sign out</a>)'.format(nickname, logout_url)
-
-        # If no account exists, make one
-        if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
-            # create user object
-            new_user = Account(id = user.user_id(), points = 0, name = nickname)
-            # update database and returns user key
-            new_user_key = new_user.put()
+        user, nickname, logout_url, greeting = getUserAccount()
 
         #  gets id of current_project_id
         current_project_id = int(self.request.get('id'))
@@ -134,20 +119,7 @@ class ProjectViewHandler(webapp2.RequestHandler):
 
 class ExploreQueryHandler(webapp2.RequestHandler):
     def get(self):
-        # Sign in was required, so get user info from Google App Engine
-        user = users.get_current_user()
-        nickname = user.nickname()
-        logout_url = users.create_logout_url('/')
-        greeting = 'Welcome, {}! (<a href="{}">sign out</a>)'.format(nickname, logout_url)
-
-        # If no account exists, make one
-        if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
-            # create user object
-            new_user = Account(id = user.user_id(), points = 0, name = nickname)
-
-            # update database and returns user key
-            new_user_key = new_user.put()
-
+        user, nickname, logout_url, greeting = getUserAccount()
 
         # gets list of project
         list_projects = Project.query().fetch()
