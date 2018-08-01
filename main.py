@@ -29,13 +29,13 @@ def getUserAccount():
     return user, nickname, logout_url, greeting
 
 
-# class for user  object, had properties ID and points
+# one-to-many relationship with Project; one-to-many relationship with Donation
 class Account(ndb.Model):
     id = ndb.StringProperty()
     points = ndb.FloatProperty()
     name = ndb.StringProperty()
 
-# class for Project object, has properties title, date, area, description and user_id
+# many-to-one relationship with Account; one-to-many relationship with Donation
 class Project(ndb.Model):
     title = ndb.StringProperty()
     date = ndb.DateProperty()
@@ -43,6 +43,11 @@ class Project(ndb.Model):
     description = ndb.StringProperty()
     user_id = ndb.StringProperty()
     time_requested = ndb.FloatProperty()
+
+# many-to-one relationship with Project; many-to-one relationship with Account
+class Donation(ndb.Model):
+    user_id = ndb.StringProperty()
+    project_id = ndb.StringProperty()
 
 class WelcomeHandler(webapp2.RequestHandler):
     """ If user goes to the / domain, redirect to user profile """
