@@ -33,113 +33,119 @@
 
   <body>
     <!-- this is where the page shows the categories and query -->
-    <div id='query-container'>
-      <table id='category-container'>
-        <tr>
-          <td>
-            Title
-          </td>
-          <td>
-            Date
-          </td>
-          <td>
-            Citizen
-          </td>
-          <!--when button pressed reloads page-->
-          <form method='post' action='/explore'>
+    <span>
+      <div id='query-container'>
+        <table id='category-container'>
+          <tr>
             <td>
-              Area:
-              <select name='area' id='area-select'/>
-                <option value='all'>
-                  All
-                </option>
-                <option value='santa-monica'>
-                  Santa Monica
-                </option>
-                <option value='torrance'>
-                  Torrance
-                </option>
-                <option value='Inglewood'>
-                  Inglewood
-                </option>
-                <option value='hawthorne'>
-                  Hawthorne
-                </option>
-                <option value='culver'>
-                  Culver City
-                </option>
-                <option value='beverly-hills'>
-                  Beverly Hills
-                </option>
-                <option value='central-la'>
-                  Central LA
-                </option>
-                <option value='south-la'>
-                  South LA
-                </option>
-                <option value='downtown'>
-                  Downtown
-                </option>
-                <option value='south-gate'>
-                  South Gate
-                </option>
-                <option value='compton'>
-                  Compton
-                </option>
+              Title
             </td>
             <td>
-              Withdrawal:
-              <select name='withdrawal' id='withdrawal-select'>
-                <option value= 'all'>
+              Date
+            </td>
 
-                </option>
-                <option value='.5'>
-                  .5
-                </option>
-                <option value='1'>
-                  1
-                </option>
-                <option value='1.5'>
-                  1.5
-                </option>
-                <option value='2'>
-                  2
-                </option>
-                <option value='2.5'>
-                  2.5
-                </option>
-                <option value='3'>
-                  3
-                </option>
-              </select>
-            </td>
-            <td>
-                <button id='search-button'> Search </button>
-            </td>
-          </form>
-        </tr>
-      </table>
-      <!-- for each project in list_projects (from query in python)-->
-      <!-- print table in row w/ attributes of project -->
-      <div id='projects-container'>
-        <table>
-        {% for project in list_projects %}
-              <tr id='{{project.key.id()}}' onclick='loadProject(this)'>
-                <td class='query-results' >
-                  {{project.title}}
-                </td>
-                <td class='query-results'>
-                  {{project.date}}
-                </td>
-                <td class='query-results'>
-                  {{project.area}}
-                </td>
-              </tr>
-        {% endfor %}
+            <!--when button pressed reloads page-->
+            <form method='post' action='/explore'>
+              <td>
+                Area:
+                <select name='area' id='area-select'/>
+                  <option value='all'>
+                    All
+                  </option>
+                  <option value='santa-monica'>
+                    Santa Monica
+                  </option>
+                  <option value='torrance'>
+                    Torrance
+                  </option>
+                  <option value='Inglewood'>
+                    Inglewood
+                  </option>
+                  <option value='hawthorne'>
+                    Hawthorne
+                  </option>
+                  <option value='culver'>
+                    Culver City
+                  </option>
+                  <option value='beverly-hills'>
+                    Beverly Hills
+                  </option>
+                  <option value='central-la'>
+                    Central LA
+                  </option>
+                  <option value='south-la'>
+                    South LA
+                  </option>
+                  <option value='downtown'>
+                    Downtown
+                  </option>
+                  <option value='south-gate'>
+                    South Gate
+                  </option>
+                  <option value='compton'>
+                    Compton
+                  </option>
+              </td>
+              <td>
+                Withdrawal:
+                <select name='withdrawal' id='withdrawal-select'>
+                  <option value= 'all'>
+                    All
+                  </option>
+                  <option value='.5'>
+                    .5
+                  </option>
+                  <option value='1'>
+                    1
+                  </option>
+                  <option value='1.5'>
+                    1.5
+                  </option>
+                  <option value='2'>
+                    2
+                  </option>
+                  <option value='2.5'>
+                    2.5
+                  </option>
+                  <option value='3'>
+                    3
+                  </option>
+                </select>
+              </td>
+              <td>
+                  <button id='search-button'> Search </button>
+              </td>
+            </form>
+          </tr>
         </table>
-      </div>
-    </div>
+        <!-- for each project in list_projects (from query in python). Iterates through backwards (in chronological order)-->
+        <!-- print table in row w/ attributes of project -->
+        <div id='projects-container'>
+          <table>
+          {% for project in list_projects[::-1] %}
 
+                <tr id='{{project.key.id()}}' onclick='loadProject(this)'>
+                  <td class='query-results' >
+                    {{project.title}}
+                  </td>
+                  <td class='query-results'>
+                    {{project.date}}
+                  </td>
+                  <td class='query-results'>
+                    {{project.area}}
+                  </td>
+                  <td class='query-results last'>
+                    {{project.time_requested}} hours
+                  </td>
+                </tr>
+          {% endfor %}
+          </table>
+        </div>
+      </div>
+    </span>
+    <span>
+
+    </span>
     <script>
       function loadProject(el){
         console.log(el.getAttribute('id'))

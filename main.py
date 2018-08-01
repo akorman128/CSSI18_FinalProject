@@ -154,16 +154,32 @@ class ExploreQueryHandler(webapp2.RequestHandler):
     def post(self):
         # gets area defined in selector in html
         area = self.request.get('area')
-        # if area == all, set list_projects to all projects in db
-        if (area == 'all'):
+        withdrawal = self.request.get('withdrawal')
+
+        # if area == all and withdrawal == all, set list_projects to all projects in db
+        if (area == 'all' and withdrawal == 'all'):
             list_projects = Project.query().fetch()
             print(list_projects)
-        else:
-        # else only show projects specified with area selected
+        # if area is some other value than all, make an area specific query
+        elif (area != 'all' and withdrawal == 'all'):
             list_projects = Project.query(Project.area == area).fetch()
+        # if withdrawal is some other value than all, make a withdrawal specific query
+        elif (area == 'all' and withdrawal != 'all'):
+            withdrawal_float = float(self.request.get('withdrawal'))
+            list_projects = Project.query(Project.time_requested == withdrawal_float).fetch()
+        else:
+        # if both the area and withdrawal are being queried
+            withdrawal_float = float(self.request.get('withdrawal'))
+            list_projects = Project.query(Project.area == area and Project.time_requested == withdrawal_float).fetch()
+        #if nothing in list make an error message. at this point nothing happens with it
+            if not list_projects:
+                error_message = 'No matching time withdrawals.'
             print(list_projects)
 
+
+
         template_vars = {
+            # 'error' : error_message,
             'list_projects' : list_projects,
         }
         profile_template = JINJA_ENVIRONMENT.get_template('templates/html/explore-projects.html')
