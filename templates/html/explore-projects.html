@@ -4,8 +4,9 @@
     <title>Explore</title>
     <link rel="stylesheet" href="../css/explore-style.css"/>
   </head>
+
   <!-- Nav bar -->
-  <nav>
+  <nav class='centered'>
     <form>
       <!-- search bar -->
       <input id='search' type='search' placeholder='Search Users...'/>
@@ -32,8 +33,9 @@
   </nav>
 
   <body>
+
     <!-- this is where the page shows the categories and query -->
-    <span>
+    <div class='centered' id='foreground'>
       <div id='query-container'>
         <table id='category-container'>
           <tr>
@@ -141,11 +143,10 @@
           {% endfor %}
           </table>
         </div>
-      </div>
-    </span>
-    <span>
 
-    </span>
+      </div>
+
+    </div><div class='centered' id='whitebg'>.</div>
     <script>
       function loadProject(el){
         console.log(el.getAttribute('id'))

@@ -4,16 +4,24 @@
 
 
 body{
-  font-family:  'Hind Vadodara';
+  background-image: url("https://static1.squarespace.com/static/51c66a03e4b04f91946712b2/t/53ba4eace4b074d7aaf6378f/1404718765835/?format=2500w");
+  margin-top:50px;
+  font-family:  'Montserrat Alternates';
   color: cornflowerblue;
+}
+
+.centered {
+  margin-left: 20%;
+  margin-right: auto;
+
 }
 
 .logo {
   font-family: 'Montserrat Alternates';
   font-size: 40px;
-  color: #45818e;
+  color: white;
   position: absolute;
-  margin-left: 13%;
+  margin-left: 5%;
   margin-top: 21px;
 }
 
@@ -25,48 +33,52 @@ a {
 }
 
 a:hover {
-  background-color: cornflowerblue;
+
   color: white;
 }
 
 nav {
-  background-color: lightgrey;
+  background-color: #45818e;
   border-bottom: darkgrey 7px solid;
-  width: 100%;
+  border-radius: 4px;
+  width: 60%;
   height: 70px;
   position: absolute;
 }
+
 /* nav bar style */
 #search {
   position: absolute;
-  margin-top: 25px;
-  margin-left: 30px;
+  margin-top: 45px;
+  margin-left: 750px;
   height: 100px;
+  width: 90px;
 }
 
 #nav-container{
-  margin-left: 60%;
+  margin-left: 35%;
   position: absolute;
-  margin-top: 40px;
+  margin-top: 38px;
   z-index: 1;
   font-weight: bold;
   color: white;
 }
 
 .nav-button{
-  font-family: 'Hind Vadodara';
+  border-radius: 5px;
+  font-family: 'Montserrat Alternates';
   font-size: 20px;
   text-align: center;
   width: 100px;
 }
 
 .nav-button:hover{
-  background-color: cornflowerblue;
+  background-color: #96C9D4;
 }
 
 #query-container{
   border-top: solid 2px lightgrey;
-  width: 100%;
+  width: 60%;
   margin-top: 74px;
   position: absolute;
 }
@@ -154,4 +166,18 @@ nav {
 
 .last{
   width: 56%;
+}
+
+#whitebg {
+  background-color: #FEFEFE;
+  height: 900px;
+  overflow: scroll;
+  width: 60%;
+  z-index:-100;
+  position: absolute;
+}
+
+#foreground {
+  z-index:100;
+
 }
