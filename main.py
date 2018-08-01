@@ -30,7 +30,6 @@ class WelcomeHandler(webapp2.RequestHandler):
         self.redirect('/user')
 
 class UserProfileHandler(webapp2.RequestHandler):
-    """ This is used for the "user profile" page"""
     def get(self):
         # Sign in was required, so get user info from Google App Engine
         user = users.get_current_user()
