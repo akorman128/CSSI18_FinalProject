@@ -96,7 +96,7 @@ nav {
   border: black solid 2px;
 }
 
-#withdrawl-header{
+#project-header{
   margin-left: 350px;
   margin-top: 325px;
   position: absolute;
@@ -104,11 +104,10 @@ nav {
   color: black;
 }
 
-#withdrawl-container{
+#project-container{
   margin-left: 350px;
   margin-top: 350px;
   width: 73.3%;
-  height: 200px;
   position: absolute;
 
   border: black solid 2px;
@@ -130,4 +129,51 @@ nav {
   position: absolute;
 
   border: black solid 2px;
+}
+
+#edit-bio{
+  position: absolute;
+  margin-left: 240px;
+  margin-top: 760px;
+}
+
+#edit-form {
+width:50%;
+height:50%;
+top:25%;
+left:24%;
+display:none;
+position:fixed;
+background-color:lightblue;
+overflow:scroll;
+}
+
+#close {
+  width: 3%;
+  height: 3%;
+}
+
+#name {
+  position: relative;
+}
+
+#project-table{
+  border: '1px solid black';
+  border-collapse: collapse;
+  display: table;
+  width: 100%;
+}
+
+#project-container tr{
+  border-bottom: black solid 2px;
+  cursor: pointer;
+  transition-duration: .6s;
+}
+
+#project-container {
+  padding: 15px;
+}
+
+#project-container tr:hover{
+  background-color: lightgrey
 }
