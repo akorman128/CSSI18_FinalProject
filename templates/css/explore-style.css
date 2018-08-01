@@ -5,7 +5,13 @@ body{
   color: cornflowerblue;
 }
 
-
+#photo {
+  width:200px;
+  height:65px;
+  position: absolute;
+  margin-left: 13%;
+  margin-top: 10px;
+}
 
 a {
   color: white;
