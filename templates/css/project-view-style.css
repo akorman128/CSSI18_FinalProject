@@ -138,11 +138,18 @@ p {
   height: 150px;
   width: 900px;
   border: black solid 2px;
+  overflow-y: scroll;
 }
 
+#requests-container table{
+  border-collapse: collapse;
+}
+
+
 .render_donor{
-  border-right: solid lightgrey 2px;
+  border-bottom: solid black 2px;
   height: 50px;
+  width: 200px;
 }
 
 

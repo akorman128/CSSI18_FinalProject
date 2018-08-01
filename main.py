@@ -153,7 +153,6 @@ class ProjectViewHandler(webapp2.RequestHandler):
 
         donation_list = Donation.query(Donation.project_id == str(current_project_id)).fetch()
 
-
         # Variables to pass into the project-view.html page
         template_vars = {
             'current_project_id' : current_project_id,
