@@ -5,6 +5,7 @@
 
 body{
   background-image: url("https://static1.squarespace.com/static/51c66a03e4b04f91946712b2/t/53ba4eace4b074d7aaf6378f/1404718765835/?format=2500w");
+  background-size: 120%;
   margin-top:50px;
   font-family:  'Montserrat Alternates';
   color: cornflowerblue;
@@ -119,6 +120,7 @@ nav {
 
 
   margin-top: -1px;
+  margin-left: 3px;
   /* min-height: 200px; */
   max-height: 670px;
 
@@ -126,6 +128,7 @@ nav {
 
 #projects-container table{
   border-collapse: collapse;
+  margin-left: 2px;
 }
 
 #projects-container tr{
@@ -161,7 +164,7 @@ nav {
   max-width: 205px;
   height: 50px;
   overflow-y: scroll;
-  padding-left: 10px;
+  padding-left: 4px;
 }
 
 .last{
@@ -170,9 +173,11 @@ nav {
 
 #whitebg {
   background-color: #FEFEFE;
+  border-radius: 8px;
   height: 900px;
   overflow: scroll;
   width: 60%;
+  margin-bottom: 10%;
   z-index:-100;
   position: absolute;
 }
