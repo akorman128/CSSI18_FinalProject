@@ -120,7 +120,7 @@ class ProjectViewHandler(webapp2.RequestHandler):
             'area' : current_project.area,
             'date' : current_project.date,
             'description': current_project.description,
-            'owner' : owner.name+' ',
+            'owner' : owner.name,
 
                 #
                 # 'nickname': nickname,
