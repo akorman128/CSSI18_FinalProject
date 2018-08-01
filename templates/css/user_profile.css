@@ -132,6 +132,32 @@ nav {
   border: black solid 2px;
 }
 
+#edit-bio{
+  position: absolute;
+  margin-left: 240px;
+  margin-top: 810px;
+}
+
+#edit-form {
+width:50%;
+height:50%;
+top:25%;
+left:24%;
+display:none;
+position:fixed;
+background-color:lightblue;
+overflow:scroll;
+}
+
+#close {
+  width: 3%;
+  height: 3%;
+}
+
+#name {
+  position: relative;
+}
+
 #project-table{
   border-collapse: collapse;
   display: table;

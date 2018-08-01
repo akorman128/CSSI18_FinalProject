@@ -46,7 +46,12 @@
 <!-- bio -->
     <h3 id='bio-header'>Bio</h3>
     <div id='bio-container'>
+
+
     </div>
+    <button id='edit-bio'>Edit Bio</button>
+    <h3 id='withdrawl-header'>My Withdrawls</h3>
+    <div id='withdrawl-container'>
 
     <h3 id='project-header'>My Projects</h3>
     <div id='project-container'>
@@ -67,11 +72,50 @@
         {% endfor %}
         </table>
 
+
     </div>
 
     <h3 id='donation-header'>My Donations</h3>
     <div id='donation-container'>
     </div>
+    <div id='edit-form'>
+      <form action="#" id="form" method="post" name="form">
+        <img id="close" src="https://static.thenounproject.com/png/261420-200.png" onclick ="div_hide()">
+        <h2>Edit Profile</h2>
+        <hr>
+        <textarea id="bio" name="message"></textarea><br>
+        <a id="submit">Submit</a>
+      </form>
+    </div>
+    <script>
+      function popUp() {
+        document.getElementById('edit-form').style.display = "block";
+      }
+      //Function to Hide Popup
+      function div_hide(){
+        document.getElementById('edit-form').style.display = "none";
+      }
+
+      document.getElementById('submit').addEventListener('click',function(){
+        document.getElementById("bio-container").innerHTML = '';
+        bioContent = document.getElementById('bio').value
+        console.log(bioContent)
+        document.getElementById('bio-container').append(bioContent);
+        div_hide();
+      });
+
+      document.getElementById('edit-bio').addEventListener('click', function(){
+        popUp();
+        formContent = document.getElementById('bio-container').value
+        if (formContent == null) {
+          document.getElementById('bio').append("Enter bio here...")
+        }
+        else {
+          document.getElementById('bio').append(formContent);
+        }
+      });
+
+    </script>
 
     <script>
       function loadProject(el){
@@ -79,6 +123,5 @@
         window.location.href = '/projectview?id=' +  project_id
       }
     </script>
-
   </body>
 </html>
