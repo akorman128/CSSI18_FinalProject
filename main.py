@@ -110,9 +110,14 @@ class ProjectViewHandler(webapp2.RequestHandler):
         if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
             # create user object
             new_user = Account(id = user.user_id(), points = 0)
-
             # update database and returns user key
             new_user_key = new_user.put()
+
+        #  gets id of current_project_id
+        current_project_id = int(self.request.get('id'))
+        current_project = Project.get_by_id(current_project_id)
+        self.response.write(current_project)
+        print(current_project)
 
             # Variables to pass into the project-view.html page
         template_vars = {
