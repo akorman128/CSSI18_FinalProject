@@ -11,6 +11,7 @@
       <input id='search' type='search' placeholder='Search Users...'/>
     </form>
     <!-- header trable -->
+    <img id='photo' src='https://lh3.googleusercontent.com/nO2icyrwKnD3eH6Y3VxgL5swt6hm9YTmXFCgB2oTuls8eSHIsVpSttS9KniY9SuCffCRes3FRSYi9rGKzl80fCTj2t6BJqE7iNIFR9xzvVrp1hz0Wm9mZhVcjCZr029URAMus7TSQ9BUZIJkYQQOvzdFbBnoTZVEkpHqxgarICYXqO85rw6SNTLwc3ppN6qMqzITLIUg9vNSmve4Zo95S0wbVbh4w9XbqRrk1b6g6-NzqIYLPpp3cYvN5G7_001QH_fsv2s7qT5uz9iqbQ9DvTfzfXjjfETmZwYBR0Wm6-P5X2harP9ZjEra6bNhQYAy8PlhFrm4q5tTo-FhkanZan6LorlDYPSQMU91sVDswSrqkbTs128lCuB1nkXMF7zF5INvmWQbz69M5MmU0fvNK1LaYu4EhLfThhVXuQIAn65k9eGeMgQkHR6QpMZFz72wUevofgiPg0wUPV3FbT3ktv85eFvEUuwr5g2ppaLz010p80YQxzZDQd0QOLbH96AGy1GV9va0G9QjjwVRzZC1WbnGFJEPUMDrtMjIhplvwrwZqYB9G263l4T5l7-wDrZFU9cqLrjSBDiF_96m05pbxRWxXQYJPbbktqdhDyYr_QP49GLuuF433IeHrGdymXaKcTAexDBIZK-WMlevOcrhxRaYMvTmLeI=w588-h191-no'>
     <table id='nav-container'>
       <tr>
         <td class='nav-button'>
@@ -32,84 +33,119 @@
 
   <body>
     <!-- this is where the page shows the categories and query -->
-    <div id='query-container'>
-      <table id='category-container'>
-        <tr>
-          <td>
-            Title
-          </td>
-          <td>
-            Date
-          </td>
-          <!--when button pressed reloads page-->
-          <form method='post' action='/explore'>
+    <span>
+      <div id='query-container'>
+        <table id='category-container'>
+          <tr>
             <td>
-              Area:
-              <select name='area' class='user-input' placeholder="Area"/>
-                <option value='all'>
-                  All
-                </option>
-                <option value='santa-monica'>
-                  Santa Monica
-                </option>
-                <option value='torrance'>
-                  Torrance
-                </option>
-                <option value='Inglewood'>
-                  Inglewood
-                </option>
-                <option value='hawthorne'>
-                  Hawthorne
-                </option>
-                <option value='culver'>
-                  Culver City
-                </option>
-                <option value='beverly-hills'>
-                  Beverly Hills
-                </option>
-                <option value='central-la'>
-                  Central LA
-                </option>
-                <option value='south-la'>
-                  South LA
-                </option>
-                <option value='downtown'>
-                  Downtown
-                </option>
-                <option value='south-gate'>
-                  South Gate
-                </option>
-                <option value='compton'>
-                  Compton
-                </option>
+              Title
             </td>
             <td>
-                <button id='search-button'> Search </button>
+              Date
             </td>
-          </form>
-        </tr>
-      </table>
-      <!-- for each project in list_projects (from query in python)-->
-      <!-- print table in row w/ attributes of project -->
-      <div id='projects-container'>
-        <table>
-        {% for project in list_projects %}
-              <tr id='{{project.key.id()}}' onclick='loadProject(this)'>
-                <td class='query-results' >
-                  {{project.title}}
-                </td>
-                <td class='query-results'>
-                  {{project.date}}
-                </td>
-                <td class='query-results'>
-                  {{project.area}}
-                </td>
-              </tr>
-        {% endfor %}
-        </table>
-      </div>
-    </div>
 
+            <!--when button pressed reloads page-->
+            <form method='post' action='/explore'>
+              <td>
+                Area:
+                <select name='area' id='area-select'/>
+                  <option value='all'>
+                    All
+                  </option>
+                  <option value='santa-monica'>
+                    Santa Monica
+                  </option>
+                  <option value='torrance'>
+                    Torrance
+                  </option>
+                  <option value='Inglewood'>
+                    Inglewood
+                  </option>
+                  <option value='hawthorne'>
+                    Hawthorne
+                  </option>
+                  <option value='culver'>
+                    Culver City
+                  </option>
+                  <option value='beverly-hills'>
+                    Beverly Hills
+                  </option>
+                  <option value='central-la'>
+                    Central LA
+                  </option>
+                  <option value='south-la'>
+                    South LA
+                  </option>
+                  <option value='downtown'>
+                    Downtown
+                  </option>
+                  <option value='south-gate'>
+                    South Gate
+                  </option>
+                  <option value='compton'>
+                    Compton
+                  </option>
+              </td>
+              <td>
+                Withdrawal:
+                <select name='withdrawal' id='withdrawal-select'>
+                  <option value= 'all'>
+                    All
+                  </option>
+                  <option value='.5'>
+                    .5
+                  </option>
+                  <option value='1'>
+                    1
+                  </option>
+                  <option value='1.5'>
+                    1.5
+                  </option>
+                  <option value='2'>
+                    2
+                  </option>
+                  <option value='2.5'>
+                    2.5
+                  </option>
+                  <option value='3'>
+                    3
+                  </option>
+                </select>
+              </td>
+              <td>
+                  <button id='search-button'> Search </button>
+              </td>
+            </form>
+          </tr>
+        </table>
+        <!-- for each project in list_projects (from query in python). Iterates through backwards (in chronological order)-->
+        <!-- print table in row w/ attributes of project -->
+        <div id='projects-container'>
+          <table>
+          {% for project in list_projects[::-1] %}
+
+                <tr id='{{project.key.id()}}' onclick='loadProject(this)'>
+                  <td class='query-results' >
+                    {{project.title}}
+                  </td>
+                  <td class='query-results'>
+                    {{project.date}}
+                  </td>
+                  <td class='query-results'>
+                    {{project.area}}
+                  </td>
+                  <td class='query-results last'>
+                    {{project.time_requested}} hours
+                  </td>
+                </tr>
+          {% endfor %}
+          </table>
+        </div>
+      </div>
+    </span>
+    <span>
+
+    </span>
     <script>
       function loadProject(el){
         console.log(el.getAttribute('id'))
