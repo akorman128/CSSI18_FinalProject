@@ -116,15 +116,26 @@ class ProjectViewHandler(webapp2.RequestHandler):
 
         #  gets id of current_project_id
         current_project_id = int(self.request.get('id'))
+        # returns project w/ current project's id
         current_project = Project.get_by_id(current_project_id)
-        self.response.write(current_project)
-        print(current_project)
 
-            # Variables to pass into the project-view.html page
+        #get project owner
+        owner_id = int(current_project.user_id)
+        owner = Account.get_by_id(owner_id)
+        self.response.write(owner)
+
+        # Variables to pass into the project-view.html page
         template_vars = {
-                'nickname': nickname,
-                'logout': logout_url,
-                'points': Account.query(Account.id == user.user_id()).fetch()[0].points
+            'project_title' : current_project.title,
+            'area' : current_project.area,
+            'date' : current_project.date,
+            'description': current_project.description,
+            # 'owner' : ,
+
+                #
+                # 'nickname': nickname,
+                # 'logout': logout_url,
+                # 'points': Account.query(Account.id == user.user_id()).fetch()[0].points
             }
 
             # render template

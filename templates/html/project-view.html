@@ -34,8 +34,8 @@
     <div class='centered'>
       <!-- header -->
       <div id='header-container' >
-        <div id='proj_name'> <!-- This is the project name. --> Project Name Here {{project_name}} </div>
-        <div id='proj_owner_name'> By [filler for later on] | [Date]</div>
+        <div id='proj_name'> {{project_title}} </div>
+        <div id='proj_owner_name'> By {{owner}}| {{date}} | {{area}} | [Request]</div>
         <div id='circle-container'>
           <!-- this is where the circle is -->
 
@@ -44,14 +44,13 @@
       <!-- body/description -->
         <h1 id='description'>Description</h1><br>
         <div id='description_container'>
-           <p>Description info right here...</p>
+           <p>{{description}}</p>
         <!--enter project description here  -->
         </div>
-        <h1 id='requirements'>Requirements</h1><br>
+        <!-- <h1 id='requirements'>Requirements</h1><br>
         <div id='requirements_container'>
            <p>Requirements info right here...</p>
-        <!--enter project description here  -->
-        </div>
+        </div> -->
       </div><br>
       <div class='centered_container'>
         <button type='submit' id='donate_button'>Donate</button>
