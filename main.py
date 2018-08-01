@@ -2,8 +2,6 @@ import webapp2
 import jinja2
 import os
 import random
-import time
-from datetime import datetime
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
@@ -25,12 +23,8 @@ class Project(ndb.Model):
     description = ndb.StringProperty()
     user_id = ndb.StringProperty()
 
-class WelcomeHandler(webapp2.RequestHandler):
-    """ If user goes to the / domain, redirect to user profile """
-    def get(self):
-        self.redirect('/user')
-
 class UserProfileHandler(webapp2.RequestHandler):
+    """ This is used for the "user profile" page"""
     def get(self):
         # Sign in was required, so get user info from Google App Engine
         user = users.get_current_user()
@@ -42,6 +36,7 @@ class UserProfileHandler(webapp2.RequestHandler):
         if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
             # create user object
             new_user = Account(id = user.user_id(), points = 0)
+
             # update database and returns user key
             new_user_key = new_user.put()
 
@@ -59,11 +54,17 @@ class UserProfileHandler(webapp2.RequestHandler):
         self.response.write(profile_template.render(template_vars))
 
 
+        #calls handler on /create page
 class CreateProjectHandler(webapp2.RequestHandler):
     def get(self):
+        logout_url = users.create_logout_url('/')
+        template_vars = {
+            'logout': logout_url,
+        }
+
         # renders create page
         create_template = JINJA_ENVIRONMENT.get_template('templates/html/create.html')
-        self.response.write(create_template.render())
+        self.response.write(create_template.render(template_vars))
 
     def post(self):
         # Sign in was required, so get user info from Google App Engine
@@ -80,22 +81,19 @@ class CreateProjectHandler(webapp2.RequestHandler):
             # update database and returns user key
             new_user_key = new_user.put()
 
-        # find user account that matches the current user's id
         current_user_account = Account.query(Account.id == user.user_id())
-        # get the key id for that account
-        current_user_key = str(current_user_account.fetch(keys_only=True)[0].id())
 
-        # parse the input date into Python DateTime format
-        new_date = datetime.strptime(self.request.get('date'), '%m/%d/%Y')
+        print current_user_account
+        current_user_key = str(current_user_account.fetch(keys_only=True)[0].id())
+        print current_user_key
 
         # creates new project object
         new_project = Project(title = self.request.get('title'), area = self.request.get('area'), \
-        description = self.request.get('description'), date = new_date, user_id = current_user_key )
+        description = self.request.get('description'), user_id = current_user_key )
 
-        # save the new project into the database and return its key
+        # returns key
         new_project_key = new_project.put()
-        # redirect to "project view" while passing in project key id
-        self.redirect('/projectview?id=' + str(new_project_key.id()))
+        #self.redirect('/user')
 
 
 class ProjectViewHandler(webapp2.RequestHandler):
@@ -110,20 +108,21 @@ class ProjectViewHandler(webapp2.RequestHandler):
         if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
             # create user object
             new_user = Account(id = user.user_id(), points = 0)
+
             # update database and returns user key
             new_user_key = new_user.put()
 
-        #  gets id of current_project_id
-        current_project_id = int(self.request.get('id'))
-        current_project = Project.get_by_id(current_project_id)
-        self.response.write(current_project)
-        print(current_project)
+        if len(Project.query(Project.user_id == user.user_id()).fetch()) > 0:
+            project_title = Project.query(Project.user_id == user.user_id()).fetch()[0].title
+        else:
+            project_title = 'N/A'
 
             # Variables to pass into the project-view.html page
         template_vars = {
                 'nickname': nickname,
                 'logout': logout_url,
-                'points': Account.query(Account.id == user.user_id()).fetch()[0].points
+                'points': Account.query(Account.id == user.user_id()).fetch()[0].points,
+                'project_name': project_title
             }
 
             # render template
@@ -164,6 +163,7 @@ class ExploreQueryHandler(webapp2.RequestHandler):
     def post(self):
         # gets area defined in selector in html
         area = self.request.get('area')
+        print(area)
         # if area == all, set list_projects to all projects in db
         if (area == 'all'):
             list_projects = Project.query().fetch()
@@ -176,8 +176,10 @@ class ExploreQueryHandler(webapp2.RequestHandler):
         template_vars = {
             'list_projects' : list_projects,
         }
+
         profile_template = JINJA_ENVIRONMENT.get_template('templates/html/explore-projects.html')
         self.response.write(profile_template.render(template_vars))
+
 
 
 
@@ -185,7 +187,6 @@ class ExploreQueryHandler(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     #this line routes the main url ('/')  - also know as
     #the root route - to the Fortune Handler
-    ('/', WelcomeHandler),
     ('/user', UserProfileHandler),
     ('/create', CreateProjectHandler),
     ('/explore', ExploreQueryHandler),
