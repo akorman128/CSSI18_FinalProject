@@ -125,7 +125,6 @@ nav {
   margin-left: 350px;
   margin-top: 590px;
   width: 73.3%;
-  height: 200px;
   position: absolute;
 
   border: black solid 2px;
@@ -164,6 +163,13 @@ overflow:scroll;
   width: 100%;
 }
 
+#donation-table{
+  border: '1px solid black';
+  border-collapse: collapse;
+  display: table;
+  width: 100%;
+}
+
 #project-container tr{
   border-bottom: black solid 2px;
   cursor: pointer;
@@ -171,6 +177,10 @@ overflow:scroll;
 }
 
 #project-container {
+  padding: 15px;
+}
+
+#donation-container {
   padding: 15px;
 }
 

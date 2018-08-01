@@ -74,7 +74,24 @@
 
     <h3 id='donation-header'>My Donations</h3>
     <div id='donation-container'>
+      <table id='donation-table'>
+        <tr>
+          <th>hours</th>
+          <th>date</th>
+          <th>area</th>
+          <th>project title</th>
+        </tr>
+        {% for donation in list_donations[::-1] %}
+        <tr id='{{donation.key.id()}}'>
+          <td>{{donation_time[donation]}}</td>
+          <td>{{donation_date[donation]}}</td>
+          <td>{{donation_area[donation]}}</td>
+          <td>{{donation_title[donation]}}</td>
+        </tr>
+        {% endfor %}
+      </table>
     </div>
+    
     <div id='edit-form'>
       <form action="#" id="form" method="post" name="form">
         <img id="close" src="https://static.thenounproject.com/png/261420-200.png" onclick ="div_hide()">
