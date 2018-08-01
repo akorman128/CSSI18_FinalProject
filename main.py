@@ -91,7 +91,8 @@ class CreateProjectHandler(webapp2.RequestHandler):
 
         # creates new project object
         new_project = Project(title = self.request.get('title'), area = self.request.get('area'), \
-        description = self.request.get('description'), date = new_date, user_id = current_user_key )
+        description = self.request.get('description'), date = new_date, user_id = current_user_key, \
+        time_requested = float(self.request.get('time_requested')))
 
         # save the new project into the database and return its key
         new_project_key = new_project.put()
