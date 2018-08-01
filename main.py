@@ -62,9 +62,13 @@ class UserProfileHandler(webapp2.RequestHandler):
 
 class CreateProjectHandler(webapp2.RequestHandler):
     def get(self):
+        logout_url = users.create_logout_url('/')
+        template_vars ={
+            'logout': logout_url
+        }
         # renders create page
         create_template = JINJA_ENVIRONMENT.get_template('templates/html/create.html')
-        self.response.write(create_template.render())
+        self.response.write(create_template.render(template_vars))
 
     def post(self):
         # Sign in was required, so get user info from Google App Engine
