@@ -81,17 +81,16 @@
           <th>area</th>
           <th>project title</th>
         </tr>
-        {% for donation in list_donations[::-1] %}
-        <tr id='{{donation.key.id()}}'>
-          <td>{{donation_time[donation]}}</td>
-          <td>{{donation_date[donation]}}</td>
-          <td>{{donation_area[donation]}}</td>
-          <td>{{donation_title[donation]}}</td>
+        {% for donation in list_of_donation_dicts[::-1] %}
+        <tr>
+          {% for key, value in donation.items() %}
+            <td>{{value}}</td>
+          {% endfor %}
         </tr>
         {% endfor %}
       </table>
     </div>
-    
+
     <div id='edit-form'>
       <form action="#" id="form" method="post" name="form">
         <img id="close" src="https://static.thenounproject.com/png/261420-200.png" onclick ="div_hide()">

@@ -6,6 +6,7 @@ import time
 from datetime import datetime
 from google.appengine.api import users
 from google.appengine.ext import ndb
+import collections
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -55,6 +56,10 @@ class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
         self.redirect('/user')
 
+# List of dicts
+# Each list is a donation
+# Each dict: belongs to a donation
+
 class UserProfileHandler(webapp2.RequestHandler):
     def get(self):
 
@@ -69,18 +74,25 @@ class UserProfileHandler(webapp2.RequestHandler):
         donation_area = {}
         donation_title = {}
         donation_date = {}
+
+        list_of_donation_dicts = []
+
         for donation in list_donations:
-            project_id = donation.project_id
+            donation_dict = collections.OrderedDict({})
 
-            hours = Project.query(Project.id == project_id).fetch().time_requested
-            area = Project.query(Project.id == project_id).fetch().area
-            project_title = Project.query(Project.id == project_id).fetch().title
-            date = Project.query(Project.id == project_id).fetch().date
+            project_id = int(donation.project_id)
 
-            donation_time[donation] = hours
-            donation_area[donation] = area
-            donation_title[donation] = project_title
-            donation_date[donation] = date
+            hours = Project.get_by_id(project_id).time_requested
+            area = Project.get_by_id(project_id).area
+            project_title = Project.get_by_id(project_id).title
+            date = Project.get_by_id(project_id).date
+
+            donation_dict['time'] = hours
+            donation_dict['date'] = date
+            donation_dict['area'] = area
+            donation_dict['title'] = project_title
+
+            list_of_donation_dicts.append(donation_dict)
 
 
         # Variables to pass into the user_profile.html page
@@ -90,11 +102,7 @@ class UserProfileHandler(webapp2.RequestHandler):
             'logout_url': logout_url,
             'points': Account.query(Account.id == user.user_id()).fetch()[0].points,
             'list_projects': list_projects,
-            'list_donations': list_donations,
-            'donation_time': donation_time,
-            'donation_area': donation_area,
-            'donation_title': donation_title,
-            'donation_date': donation_date,
+            'list_of_donation_dicts': list_of_donation_dicts,
         }
 
         # render template
