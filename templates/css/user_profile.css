@@ -24,6 +24,10 @@ nav {
   height: 70px;
   position: fixed;
 }
+
+#whitetext{
+  color:white;
+}
 /* nav bar style */
 #search {
   position:absolute;
@@ -133,18 +137,27 @@ nav {
   margin-top: 760px;
 }
 
+#form {
+  position: relative;
+  margin-top: 10px;
+  margin-left:10%;
+  margin-right:10%;
+}
+
 #edit-form {
 width:50%;
 height:50%;
 top:25%;
 left:24%;
+border-radius: 15px;
 display:none;
 position:fixed;
-background-color:lightblue;
+background-color: #45818e;
 overflow:scroll;
 }
 
 #close {
+  margin-left: -10%;
   width: 3%;
   height: 3%;
 }
@@ -193,4 +206,8 @@ overflow:scroll;
 
 #donation-container tr:hover{
   background-color: lightgrey
+}
+
+#bio {
+  width:100%;
 }
