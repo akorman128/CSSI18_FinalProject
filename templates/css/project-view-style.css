@@ -143,14 +143,52 @@ p {
 
 #requests-container table{
   border-collapse: collapse;
+
 }
 
 
 .render_donor{
   border-bottom: solid black 2px;
+  background-color: #eeedf9;
+  transition-duration: .6s;
+
+  padding-left: 10px;
   height: 50px;
-  width: 200px;
+  width: 400px;
 }
+
+.render_donor:hover{
+  background-color: lightgrey;
+}
+
+.button{
+  width: 150px;
+  height: 35px;
+  border-radius: 20px;
+}
+
+.one{
+  margin-left: 60px;
+  color: green;
+  transition-duration: .6s;
+
+}
+
+.one:hover{
+  color:white;
+  background-color: green;
+}
+
+.two{
+  margin-left: 60px;
+  color: red;
+  transition-duration: .6s;
+}
+.two:hover{
+  color:white;
+  background-color: red;
+}
+
 
 
 #donate_button {
