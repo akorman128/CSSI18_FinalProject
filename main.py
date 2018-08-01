@@ -153,7 +153,6 @@ class ProjectViewHandler(webapp2.RequestHandler):
 
         donation_list = Donation.query(Donation.project_id == str(current_project_id)).fetch()
 
-
         # Variables to pass into the project-view.html page
         template_vars = {
             'current_project_id' : current_project_id,
@@ -179,14 +178,15 @@ class ProjectViewHandler(webapp2.RequestHandler):
     def post(self):
         user, nickname, logout_url, greeting = getUserAccount()
         # get current user object
-        user_object = Account.query(Account.name == nickname).fetch()[0]
+        user_object = Account.query(Account.id == user.user_id()).fetch()[0]
         user_id = user_object.key.id()
 
-        current_project_id = int(self.request.get('id'))
-        current_project = Project.get_by_id(current_project_id)
+        current_project_id = str(self.request.get('id'))
+        current_project = Project.get_by_id(current_project_id).fetch()
 
-        owner_id = int(current_project.user_id)
-        owner = Account.get_by_id(owner_id)
+        owner_id = str(current_project.user_id)
+        #owner = Account.get_by_id(owner_id)
+        owner_account = Account.query(Account.id == owner_id).fetch()[0]
 
         #--------------------------
         new_donation = Donation(user_id = str(user_id), project_id = str(current_project_id), nickname = nickname)
@@ -200,7 +200,7 @@ class ProjectViewHandler(webapp2.RequestHandler):
             'area' : current_project.area,
             'date' : current_project.date,
             'description': current_project.description,
-            'owner' : str(owner.name),
+            'owner' : str(owner_account.name),
             'request' : current_project.time_requested,
             #------------viewer info--------------
             'donation_list' : donation_list,
