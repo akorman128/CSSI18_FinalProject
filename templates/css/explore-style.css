@@ -1,17 +1,22 @@
 @import url(https://fonts.googleapis.com/css?family=Hind+Vadodara);
+@import url(https://fonts.googleapis.com/css?family=Montserrat+Alternates);
+
+
 
 body{
   font-family:  'Hind Vadodara';
   color: cornflowerblue;
 }
 
-#logo {
-  width:200px;
-  height:65px;
+.logo {
+  font-family: 'Montserrat Alternates';
+  font-size: 40px;
+  color: #45818e;
   position: absolute;
   margin-left: 13%;
-  margin-top: 10px;
+  margin-top: 21px;
 }
+
 
 a {
   color: white;
@@ -25,9 +30,8 @@ a:hover {
 }
 
 nav {
-  background-color: royalblue;
-
-  border-bottom: grey 4px solid;
+  background-color: lightgrey;
+  border-bottom: darkgrey 7px solid;
   width: 100%;
   height: 70px;
   position: absolute;
