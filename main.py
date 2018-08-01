@@ -179,7 +179,7 @@ class ProjectViewHandler(webapp2.RequestHandler):
         user, nickname, logout_url, greeting = getUserAccount()
         # get current user object
         user_object = Account.query(Account.id == user.user_id()).fetch()[0]
-        user_id = user_object.key.id()
+        user_id = str(user.user_id())
 
         current_project_id = int(self.request.get('id'))
         current_project = Project.get_by_id(current_project_id)
