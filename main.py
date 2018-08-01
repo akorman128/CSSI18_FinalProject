@@ -94,7 +94,7 @@ class CreateProjectHandler(webapp2.RequestHandler):
         # returns key
         new_project_key = new_project.put()
         #time.sleep(10)
-        self.redirect('/user')
+        self.redirect('/projectview?id=' + str(new_project_key.id()))
 
 
 class ProjectViewHandler(webapp2.RequestHandler):
