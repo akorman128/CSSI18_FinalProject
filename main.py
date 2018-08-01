@@ -26,6 +26,7 @@ class Project(ndb.Model):
     user_id = ndb.StringProperty()
 
 class WelcomeHandler(webapp2.RequestHandler):
+    """ If user goes to the / domain, redirect to user profile """
     def get(self):
         self.redirect('/user')
 
@@ -41,7 +42,6 @@ class UserProfileHandler(webapp2.RequestHandler):
         if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
             # create user object
             new_user = Account(id = user.user_id(), points = 0)
-
             # update database and returns user key
             new_user_key = new_user.put()
 
@@ -59,7 +59,6 @@ class UserProfileHandler(webapp2.RequestHandler):
         self.response.write(profile_template.render(template_vars))
 
 
-        #calls handler on /create page
 class CreateProjectHandler(webapp2.RequestHandler):
     def get(self):
         # renders create page
@@ -81,18 +80,21 @@ class CreateProjectHandler(webapp2.RequestHandler):
             # update database and returns user key
             new_user_key = new_user.put()
 
+        # find user account that matches the current user's id
         current_user_account = Account.query(Account.id == user.user_id())
+        # get the key id for that account
         current_user_key = str(current_user_account.fetch(keys_only=True)[0].id())
 
+        # parse the input date into Python DateTime format
         new_date = datetime.strptime(self.request.get('date'), '%m/%d/%Y')
 
         # creates new project object
         new_project = Project(title = self.request.get('title'), area = self.request.get('area'), \
         description = self.request.get('description'), date = new_date, user_id = current_user_key )
 
-        # returns key
+        # save the new project into the database and return its key
         new_project_key = new_project.put()
-        #time.sleep(10)
+        # redirect to "project view" while passing in project key id
         self.redirect('/projectview?id=' + str(new_project_key.id()))
 
 
