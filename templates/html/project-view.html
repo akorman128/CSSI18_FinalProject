@@ -31,30 +31,39 @@
   </nav>
 
   <body>
-    <div class='centered'>
-      <!-- header -->
-      <div id='header-container' >
-        <div id='proj_name'> {{project_title}} </div>
-        <div id='proj_owner_name'> By {{owner}}| {{date}} | {{area}} | [Request]</div>
-        <div id='circle-container'>
-          <!-- this is where the circle is -->
+
+    <span>
+      <div class='centered'>
+        <!-- header -->
+        <div id='header-container' >
+          <div id='proj_name'> {{project_title}} </div>
+          <div id='proj_facts'> By {{owner}}| {{date}} | {{area}} | {{request}} hours requested </div>
+          <div id='circle-container'>
+            <!-- this is where the circle is -->
+
+          </div>
+
+        <!-- body/description -->
+          <h3 id='description-header'>Description</h3><br>
+          <div id='description_container'>
+             <p>{{description}}</p>
+          <!--enter project description here  -->
+          </div>
+          <!-- <h1 id='requirements'>Requirements</h1><br>
+          <div id='requirements_container'>
+             <p>Requirements info right here...</p>
+          </div> -->
+        </div><br>
+      </span>
+
+      <span>
+        <h3 id='requests-header'>Donation Requests</h3>
+        <div id='requests-container'>
 
         </div>
+      </span>
 
-      <!-- body/description -->
-        <h1 id='description'>Description</h1><br>
-        <div id='description_container'>
-           <p>{{description}}</p>
-        <!--enter project description here  -->
-        </div>
-        <!-- <h1 id='requirements'>Requirements</h1><br>
-        <div id='requirements_container'>
-           <p>Requirements info right here...</p>
-        </div> -->
-      </div><br>
-      <div class='centered_container'>
         <button type='submit' id='donate_button'>Donate</button>
-      </div>
     </div>
   </body>
 </html>

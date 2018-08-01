@@ -29,13 +29,13 @@ def getUserAccount():
     return user, nickname, logout_url, greeting
 
 
-# class for user  object, had properties ID and points
+# one-to-many relationship with Project; one-to-many relationship with Donation
 class Account(ndb.Model):
     id = ndb.StringProperty()
     points = ndb.FloatProperty()
     name = ndb.StringProperty()
 
-# class for Project object, has properties title, date, area, description and user_id
+# many-to-one relationship with Account; one-to-many relationship with Donation
 class Project(ndb.Model):
     title = ndb.StringProperty()
     date = ndb.DateProperty()
@@ -43,6 +43,11 @@ class Project(ndb.Model):
     description = ndb.StringProperty()
     user_id = ndb.StringProperty()
     time_requested = ndb.FloatProperty()
+
+# many-to-one relationship with Project; many-to-one relationship with Account
+class Donation(ndb.Model):
+    user_id = ndb.StringProperty()
+    project_id = ndb.StringProperty()
 
 class WelcomeHandler(webapp2.RequestHandler):
     """ If user goes to the / domain, redirect to user profile """
@@ -54,12 +59,16 @@ class UserProfileHandler(webapp2.RequestHandler):
 
         user, nickname, logout_url, greeting = getUserAccount()
 
+        current_user_id = str(user.user_id())
+        list_projects = Project.query(Project.user_id == current_user_id).fetch()
+
         # Variables to pass into the user_profile.html page
         template_vars = {
             'nickname': nickname,
             'logout': logout_url,
             'logout_url': logout_url,
-            'points': Account.query(Account.id == user.user_id()).fetch()[0].points
+            'points': Account.query(Account.id == user.user_id()).fetch()[0].points,
+            'list_projects': list_projects,
         }
 
         # render template
@@ -82,16 +91,17 @@ class CreateProjectHandler(webapp2.RequestHandler):
         user, nickname, logout_url, greeting = getUserAccount()
 
         # find user account that matches the current user's id
-        current_user_account = Account.query(Account.id == user.user_id())
+        #current_user_account = Account.query(Account.id == user.user_id())
         # get the key id for that account
-        current_user_key = str(current_user_account.fetch(keys_only=True)[0].id())
+        #current_user_key = str(current_user_account.fetch(keys_only=True)[0].id())
+        current_user_id = str(user.user_id())
 
         # parse the input date into Python DateTime format
-        new_date = datetime.strptime(self.request.get('date'), '%m/%d/%Y')
+        new_date = datetime.strptime(self.request.get('date'), '%Y-%m-%d')
 
         # creates new project object
         new_project = Project(title = self.request.get('title'), area = self.request.get('area'), \
-        description = self.request.get('description'), date = new_date, user_id = current_user_key, \
+        description = self.request.get('description'), date = new_date, user_id = current_user_id, \
         time_requested = float(self.request.get('time_requested')))
 
         # save the new project into the database and return its key
@@ -103,16 +113,21 @@ class CreateProjectHandler(webapp2.RequestHandler):
 class ProjectViewHandler(webapp2.RequestHandler):
     def get(self):
         user, nickname, logout_url, greeting = getUserAccount()
+        user_object = Account.query(Account.name == nickname).fetch()[0]
+        self.response.write(user_object)
 
+        #--------------------------
         #  gets id of current_project_id
         current_project_id = int(self.request.get('id'))
         # returns project w/ current project's id
         current_project = Project.get_by_id(current_project_id)
-
+        #--------------------------
         #get project owner id
-        owner_id = int(current_project.user_id)
+        owner_id = str(current_project.user_id)
         # gets owner object
-        owner = Account.get_by_id(owner_id)
+        #owner = Account.get_by_id(owner_id)
+        owner_account = Account.query(Account.id == owner_id).fetch()[0]
+        #--------------------------
 
         # Variables to pass into the project-view.html page
         template_vars = {
@@ -120,7 +135,11 @@ class ProjectViewHandler(webapp2.RequestHandler):
             'area' : current_project.area,
             'date' : current_project.date,
             'description': current_project.description,
-            'owner' : owner.name+' ',
+            'owner' : str(owner_account.name),
+            'request' : current_project.time_requested,
+            #------------viewer info--------------
+            'viewer' : user,
+
 
                 #
                 # 'nickname': nickname,
@@ -139,7 +158,6 @@ class ExploreQueryHandler(webapp2.RequestHandler):
 
         # gets list of project
         list_projects = Project.query().fetch()
-        print(list_projects)
 
         template_vars = {
             'list_projects' : list_projects,
@@ -153,16 +171,32 @@ class ExploreQueryHandler(webapp2.RequestHandler):
     def post(self):
         # gets area defined in selector in html
         area = self.request.get('area')
-        # if area == all, set list_projects to all projects in db
-        if (area == 'all'):
+        withdrawal = self.request.get('withdrawal')
+
+        # if area == all and withdrawal == all, set list_projects to all projects in db
+        if (area == 'all' and withdrawal == 'all'):
             list_projects = Project.query().fetch()
             print(list_projects)
-        else:
-        # else only show projects specified with area selected
+        # if area is some other value than all, make an area specific query
+        elif (area != 'all' and withdrawal == 'all'):
             list_projects = Project.query(Project.area == area).fetch()
+        # if withdrawal is some other value than all, make a withdrawal specific query
+        elif (area == 'all' and withdrawal != 'all'):
+            withdrawal_float = float(self.request.get('withdrawal'))
+            list_projects = Project.query(Project.time_requested == withdrawal_float).fetch()
+        else:
+        # if both the area and withdrawal are being queried
+            withdrawal_float = float(self.request.get('withdrawal'))
+            list_projects = Project.query(Project.area == area and Project.time_requested == withdrawal_float).fetch()
+        #if nothing in list make an error message. at this point nothing happens with it
+            if not list_projects:
+                error_message = 'No matching time withdrawals.'
             print(list_projects)
 
+
+
         template_vars = {
+            # 'error' : error_message,
             'list_projects' : list_projects,
         }
         profile_template = JINJA_ENVIRONMENT.get_template('templates/html/explore-projects.html')
