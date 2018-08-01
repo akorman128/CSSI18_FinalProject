@@ -99,7 +99,7 @@ class CreateProjectHandler(webapp2.RequestHandler):
         # redirect to "project view" while passing in project key id
         self.redirect('/projectview?id=' + str(new_project_key.id()))
 
-
+#******************************
 class ProjectViewHandler(webapp2.RequestHandler):
     def get(self):
         user, nickname, logout_url, greeting = getUserAccount()
