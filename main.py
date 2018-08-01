@@ -59,12 +59,16 @@ class UserProfileHandler(webapp2.RequestHandler):
 
         user, nickname, logout_url, greeting = getUserAccount()
 
+        current_user_id = str(user.user_id())
+        list_projects = Project.query(Project.user_id == current_user_id).fetch()
+
         # Variables to pass into the user_profile.html page
         template_vars = {
             'nickname': nickname,
             'logout': logout_url,
             'logout_url': logout_url,
-            'points': Account.query(Account.id == user.user_id()).fetch()[0].points
+            'points': Account.query(Account.id == user.user_id()).fetch()[0].points,
+            'list_projects': list_projects,
         }
 
         # render template
@@ -87,16 +91,17 @@ class CreateProjectHandler(webapp2.RequestHandler):
         user, nickname, logout_url, greeting = getUserAccount()
 
         # find user account that matches the current user's id
-        current_user_account = Account.query(Account.id == user.user_id())
+        #current_user_account = Account.query(Account.id == user.user_id())
         # get the key id for that account
-        current_user_key = str(current_user_account.fetch(keys_only=True)[0].id())
+        #current_user_key = str(current_user_account.fetch(keys_only=True)[0].id())
+        current_user_id = str(user.user_id())
 
         # parse the input date into Python DateTime format
         new_date = datetime.strptime(self.request.get('date'), '%Y-%m-%d')
 
         # creates new project object
         new_project = Project(title = self.request.get('title'), area = self.request.get('area'), \
-        description = self.request.get('description'), date = new_date, user_id = current_user_key, \
+        description = self.request.get('description'), date = new_date, user_id = current_user_id, \
         time_requested = float(self.request.get('time_requested')))
 
         # save the new project into the database and return its key
@@ -118,9 +123,10 @@ class ProjectViewHandler(webapp2.RequestHandler):
         current_project = Project.get_by_id(current_project_id)
         #--------------------------
         #get project owner id
-        owner_id = int(current_project.user_id)
+        owner_id = str(current_project.user_id)
         # gets owner object
-        owner = Account.get_by_id(owner_id)
+        #owner = Account.get_by_id(owner_id)
+        owner_account = Account.query(Account.id == owner_id).fetch()[0]
         #--------------------------
 
         # Variables to pass into the project-view.html page
@@ -129,7 +135,7 @@ class ProjectViewHandler(webapp2.RequestHandler):
             'area' : current_project.area,
             'date' : current_project.date,
             'description': current_project.description,
-            'owner' : str(owner.name),
+            'owner' : str(owner_account.name),
             'request' : current_project.time_requested,
             #------------viewer info--------------
             'viewer' : user,

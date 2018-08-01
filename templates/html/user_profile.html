@@ -48,13 +48,28 @@
     <div id='bio-container'>
     </div>
 
-    <h3 id='withdrawl-header'>My Withdrawls</h3>
-    <div id='withdrawl-container'>
+    <h3 id='project-header'>My Projects</h3>
+    <div id='project-container'>
+      {% for project in list_projects[::-1] %}
+        <tr id='{{project.key.id()}}' onclick='loadProject(this)'>
+          <td>{{project.title}}</td> <br />
+          <td>{{project.date}}</td> <br />
+          <td>{{project.area}}</td>
+          <td>{{project.time_requested}} hours</td>
+        </tr>
+      {% endfor %}
     </div>
 
     <h3 id='donation-header'>My Donations</h3>
     <div id='donation-container'>
     </div>
+
+    <script>
+      function loadProject(el){
+        project_id = el.getAttribute('id')
+        window.location.href = '/projectview?id=' +  project_id
+      }
+    </script>
 
   </body>
 </html>
