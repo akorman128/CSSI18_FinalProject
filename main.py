@@ -176,6 +176,8 @@ class ProjectViewHandler(webapp2.RequestHandler):
         self.response.write(profile_template.render(template_vars))
 
     def post(self):
+
+        #------------SETTING VARIABLES--------------
         user, nickname, logout_url, greeting = getUserAccount()
         # get current user object
         user_object = Account.query(Account.id == user.user_id()).fetch()[0]
@@ -188,35 +190,41 @@ class ProjectViewHandler(webapp2.RequestHandler):
         owner_id = str(current_project.user_id)
         #owner = Account.get_by_id(owner_id)
         owner_account = Account.query(Account.id == owner_id).fetch()[0]
+        #---------------------------------------------
 
-        #--------------------------
-        new_donation = Donation(user_id = str(user_id), project_id = str(current_project_id), nickname = nickname)
-        new_donation_key = new_donation.put()
-        donation_list = Donation.query(Donation.project_id == str(current_project_id)).fetch()
-
-        # Variables to pass into the project-view.html page
-        template_vars = {
-            'current_project_id' : current_project_id,
-            'project_title' : current_project.title,
-            'area' : current_project.area,
-            'date' : current_project.date,
-            'description': current_project.description,
-            'owner' : str(owner_account.name),
-            'request' : current_project.time_requested,
-            #------------viewer info--------------
-            'donation_list' : donation_list,
-
-                #
-                # 'nickname': nickname,
-                # 'logout': logout_url,
-                # 'points': Account.query(Account.id == user.user_id()).fetch()[0].points
-            }
+        
 
 
-        # render template
-        profile_template = JINJA_ENVIRONMENT.get_template('templates/html/project-view.html')
-        # passes variable dictionary
-        self.response.write(profile_template.render(template_vars))
+        if (self.request.get('action') == 'donate'):
+
+            new_donation = Donation(user_id = str(user_id), project_id = str(current_project_id), nickname = nickname)
+            new_donation_key = new_donation.put()
+            donation_list = Donation.query(Donation.project_id == str(current_project_id)).fetch()
+
+
+            # Variables to pass into the project-view.html page
+            template_vars = {
+                'current_project_id' : current_project_id,
+                'project_title' : current_project.title,
+                'area' : current_project.area,
+                'date' : current_project.date,
+                'description': current_project.description,
+                'owner' : str(owner_account.name),
+                'request' : current_project.time_requested,
+                #------------viewer info--------------
+                'donation_list' : donation_list,
+
+                    #
+                    # 'nickname': nickname,
+                    # 'logout': logout_url,
+                    # 'points': Account.query(Account.id == user.user_id()).fetch()[0].points
+                }
+
+
+            # render template
+            profile_template = JINJA_ENVIRONMENT.get_template('templates/html/project-view.html')
+            # passes variable dictionary
+            self.response.write(profile_template.render(template_vars))
 
 
 

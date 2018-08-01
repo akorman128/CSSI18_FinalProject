@@ -65,18 +65,25 @@
               <td class='render_donor first'>
                 Deposit from: {{donation.nickname}}
               </td>
-              <td class='render_donor'>
-                <button class='button one'>Accept</button>
-              </td>
-              <td class='render_donor'>
-                <button class='button two'>Reject</button>
-              </td>
+                <td class='render_donor'>
+                  <form method="post" action='/projectview?id={{current_project_id}}'>
+                    <input type='hidden' name='action' value='accept'/>
+                    <button class='button one'>Accept</button>
+                  </form>
+                </td>
+                <td class='render_donor'>
+                  <form method="post" action='/projectview?id={{current_project_id}}' >
+                    <input type='hidden' name='action' value='reject'/>
+                    <button class='button two'>Reject</button>
+                  </form>
+                </td>
             </tr>
           </table>
           {% endfor %}
         </div>
       </span>
       <form method='post' action='/projectview?id={{current_project_id}}'>
+        <input type='hidden' name='action' value='donate'/>
         <button type='submit' id='donate_button'>Donate</button>
       </form>
     </div>
