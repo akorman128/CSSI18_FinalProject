@@ -52,11 +52,11 @@
     <div id='project-container'>
       {% for project in list_projects[::-1] %}
         <tr id='{{project.key.id()}}' onclick='loadProject(this)'>
-          <td>{{project.title}}</td> <br />
-          <td>{{project.date}}</td> <br />
-          <td>{{project.area}}</td>
+          <td>{{project.title}}   </td>
+          <td>{{project.date}}    </td>
+          <td>{{project.area}}    </td>
           <td>{{project.time_requested}} hours</td>
-        </tr>
+        </tr> <br />
       {% endfor %}
     </div>
 
