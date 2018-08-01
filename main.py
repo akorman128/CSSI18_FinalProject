@@ -16,6 +16,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 class Account(ndb.Model):
     id = ndb.StringProperty()
     points = ndb.FloatProperty()
+    name = ndb.StringProperty()
 
 # class for Project object, has properties title, date, area, description and user_id
 class Project(ndb.Model):
@@ -41,7 +42,7 @@ class UserProfileHandler(webapp2.RequestHandler):
         # If no account exists, make one
         if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
             # create user object
-            new_user = Account(id = user.user_id(), points = 0)
+            new_user = Account(id = user.user_id(), points = 0, name = nickname)
             # update database and returns user key
             new_user_key = new_user.put()
 
@@ -75,7 +76,7 @@ class CreateProjectHandler(webapp2.RequestHandler):
         # If no account exists, make one
         if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
             # create user object
-            new_user = Account(id = user.user_id(), points = 0)
+            new_user = Account(id = user.user_id(), points = 0, name = nickname)
 
             # update database and returns user key
             new_user_key = new_user.put()
@@ -109,7 +110,7 @@ class ProjectViewHandler(webapp2.RequestHandler):
         # If no account exists, make one
         if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
             # create user object
-            new_user = Account(id = user.user_id(), points = 0)
+            new_user = Account(id = user.user_id(), points = 0, name = nickname)
             # update database and returns user key
             new_user_key = new_user.put()
 
@@ -142,7 +143,7 @@ class ExploreQueryHandler(webapp2.RequestHandler):
         # If no account exists, make one
         if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
             # create user object
-            new_user = Account(id = user.user_id(), points = 0)
+            new_user = Account(id = user.user_id(), points = 0, name = nickname)
 
             # update database and returns user key
             new_user_key = new_user.put()
