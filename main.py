@@ -121,7 +121,7 @@ class ProjectViewHandler(webapp2.RequestHandler):
             'date' : current_project.date,
             'description': current_project.description,
             'owner' : owner.name,
-            # 'request' : current_project.request
+            'request' : current_project.time_requested,
 
                 #
                 # 'nickname': nickname,
