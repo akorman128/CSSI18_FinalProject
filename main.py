@@ -60,8 +60,28 @@ class UserProfileHandler(webapp2.RequestHandler):
 
         user, nickname, logout_url, greeting = getUserAccount()
 
+        # Find all the projects & donations belonging to the current user
         current_user_id = str(user.user_id())
         list_projects = Project.query(Project.user_id == current_user_id).fetch()
+        list_donations = Donation.query(Donation.user_id == current_user_id).fetch()
+
+        donation_time = {}
+        donation_area = {}
+        donation_title = {}
+        donation_date = {}
+        for donation in list_donations:
+            project_id = donation.project_id
+
+            hours = Project.query(Project.id == project_id).fetch().time_requested
+            area = Project.query(Project.id == project_id).fetch().area
+            project_title = Project.query(Project.id == project_id).fetch().title
+            date = Project.query(Project.id == project_id).fetch().date
+
+            donation_time[donation] = hours
+            donation_area[donation] = area
+            donation_title[donation] = project_title
+            donation_date[donation] = date
+
 
         # Variables to pass into the user_profile.html page
         template_vars = {
@@ -70,6 +90,11 @@ class UserProfileHandler(webapp2.RequestHandler):
             'logout_url': logout_url,
             'points': Account.query(Account.id == user.user_id()).fetch()[0].points,
             'list_projects': list_projects,
+            'list_donations': list_donations,
+            'donation_time': donation_time,
+            'donation_area': donation_area,
+            'donation_title': donation_title,
+            'donation_date': donation_date,
         }
 
         # render template
