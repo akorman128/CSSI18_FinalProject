@@ -29,13 +29,13 @@ def getUserAccount():
     return user, nickname, logout_url, greeting
 
 
-# class for user  object, had properties ID and points
+# one-to-many relationship with Project; one-to-many relationship with Donation
 class Account(ndb.Model):
     id = ndb.StringProperty()
     points = ndb.FloatProperty()
     name = ndb.StringProperty()
 
-# class for Project object, has properties title, date, area, description and user_id
+# many-to-one relationship with Account; one-to-many relationship with Donation
 class Project(ndb.Model):
     title = ndb.StringProperty()
     date = ndb.DateProperty()
@@ -43,6 +43,11 @@ class Project(ndb.Model):
     description = ndb.StringProperty()
     user_id = ndb.StringProperty()
     time_requested = ndb.FloatProperty()
+
+# many-to-one relationship with Project; many-to-one relationship with Account
+class Donation(ndb.Model):
+    user_id = ndb.StringProperty()
+    project_id = ndb.StringProperty()
 
 class WelcomeHandler(webapp2.RequestHandler):
     """ If user goes to the / domain, redirect to user profile """
@@ -87,7 +92,7 @@ class CreateProjectHandler(webapp2.RequestHandler):
         current_user_key = str(current_user_account.fetch(keys_only=True)[0].id())
 
         # parse the input date into Python DateTime format
-        new_date = datetime.strptime(self.request.get('date'), '%m/%d/%Y')
+        new_date = datetime.strptime(self.request.get('date'), '%Y-%m-%d')
 
         # creates new project object
         new_project = Project(title = self.request.get('title'), area = self.request.get('area'), \
@@ -124,7 +129,7 @@ class ProjectViewHandler(webapp2.RequestHandler):
             'area' : current_project.area,
             'date' : current_project.date,
             'description': current_project.description,
-            'owner' : owner.name,
+            'owner' : str(owner.name),
             'request' : current_project.time_requested,
             #------------viewer info--------------
             'viewer' : user,
@@ -147,7 +152,6 @@ class ExploreQueryHandler(webapp2.RequestHandler):
 
         # gets list of project
         list_projects = Project.query().fetch()
-        print(list_projects)
 
         template_vars = {
             'list_projects' : list_projects,
