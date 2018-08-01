@@ -42,7 +42,7 @@ class Project(ndb.Model):
     area = ndb.StringProperty()
     description = ndb.StringProperty()
     user_id = ndb.StringProperty()
-    time_requested = FloatProperty()
+    time_requested = ndb.FloatProperty()
 
 class WelcomeHandler(webapp2.RequestHandler):
     """ If user goes to the / domain, redirect to user profile """
