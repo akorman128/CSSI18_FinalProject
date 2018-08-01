@@ -71,8 +71,17 @@ nav {
   padding-left: 10px;
 }
 
-#category-container select{
+#area-select{
   width: 145px;
+  height: 45px;
+  margin-left: 5px;
+
+  color: royalblue;
+  border: grey solid 2px;
+}
+
+#withdrawal-select{
+  width: 95px;
   height: 45px;
   margin-left: 5px;
 
@@ -97,7 +106,13 @@ nav {
 #projects-container tr{
   border-bottom: black solid 2px;
   cursor: pointer;
+  transition-duration: .6s;
 }
+
+#projects-container tr:hover{
+  background-color: lightgrey
+}
+
 
 #search-button{
   width: 145px;
