@@ -181,8 +181,9 @@ class ProjectViewHandler(webapp2.RequestHandler):
         user_object = Account.query(Account.id == user.user_id()).fetch()[0]
         user_id = user_object.key.id()
 
-        current_project_id = str(self.request.get('id'))
-        current_project = Project.get_by_id(current_project_id).fetch()
+        current_project_id = int(self.request.get('id'))
+        current_project = Project.get_by_id(current_project_id)
+        #current_project = Project.get_by_id(current_project_id).fetch()
 
         owner_id = str(current_project.user_id)
         #owner = Account.get_by_id(owner_id)
