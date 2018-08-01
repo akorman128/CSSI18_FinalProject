@@ -132,9 +132,10 @@ nav {
   border: black solid 2px;
 }
 
-#project-container table{
+#project-table{
   border-collapse: collapse;
   display: table;
+  padding: 100px;
 }
 
 #project-container tr{

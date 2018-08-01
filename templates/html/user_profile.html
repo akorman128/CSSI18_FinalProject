@@ -50,14 +50,23 @@
 
     <h3 id='project-header'>My Projects</h3>
     <div id='project-container'>
-      {% for project in list_projects[::-1] %}
+      <table id='project-table'>
+        <tr>
+          <th>title</th>
+          <th>date</th>
+          <th>area</th>
+          <th>time requested</th>
+        </tr>
+        {% for project in list_projects[::-1] %}
         <tr id='{{project.key.id()}}' onclick='loadProject(this)'>
-          <td>{{project.title}}   </td>
-          <td>{{project.date}}    </td>
-          <td>{{project.area}}    </td>
+          <td>{{project.title}}</td>
+          <td>{{project.date}}</td>
+          <td>{{project.area}}</td>
           <td>{{project.time_requested}} hours</td>
-        </tr> <br />
-      {% endfor %}
+        </tr>
+        {% endfor %}
+        </table>
+
     </div>
 
     <h3 id='donation-header'>My Donations</h3>
