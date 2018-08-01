@@ -152,8 +152,7 @@ class ProjectViewHandler(webapp2.RequestHandler):
         owner = Account.get_by_id(owner_id)
 
         donation_list = Donation.query(Donation.project_id == str(current_project_id)).fetch()
-        self.response.write(donation_list[0])
-
+        self.response.write(donation_list[0]
         # Variables to pass into the project-view.html page
         template_vars = {
             'current_project_id' : current_project_id,
