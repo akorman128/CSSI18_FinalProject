@@ -5,35 +5,39 @@
     <link rel="stylesheet" href="../css/project-view-style.css"/>
   </head>
   <!-- Nav bar -->
-  <nav>
-    <form>
-      <!-- search bar -->
-      <input id='search' type='search' placeholder='Search Users...'/>
-    </form>
-    <!-- header trable -->
-    <table id='nav-container'>
-      <tr>
-        <td class='nav-button'>
-          <a href='/explore'>Explore</a>
-        </td>
-        <td class='nav-button'>
-          <a href='/create'>Create</a>
-        </td>
-        <td class='nav-button'>
-          <a href='/user'>Profile</a>
-        </td>
 
-        <td class='nav-button'>
-          <a href="{{logout}}">Logout</a>
-        </td>
-      </tr>
-    </table>
-  </nav>
 
-  <body>
+  <body class='centered'>
+
+    <nav>
+      <form>
+        <!-- search bar -->
+        <input id='search' type='search' placeholder='Search Users...'/>
+      </form>
+      <!-- header trable -->
+      <table id='nav-container'>
+        <tr>
+          <td class='nav-button'>
+            <a href='/explore'>Explore</a>
+          </td>
+          <td class='nav-button'>
+            <a href='/create'>Create</a>
+          </td>
+          <td class='nav-button'>
+            <a href='/user'>Profile</a>
+          </td>
+
+          <td class='nav-button'>
+            <a href="{{logout}}">Logout</a>
+          </td>
+        </tr>
+      </table>
+      <div class='logo'>b<span style="color: #a2c4c9">/</span>lend<div>
+    </nav>
+
 
     <span>
-      <div class='centered'>
+      <div>
         <!-- header -->
         <div id='header-container' >
           <div id='proj_name'> {{project_title}} </div>
@@ -54,9 +58,9 @@
              <p>Requirements info right here...</p>
           </div> -->
         </div><br>
-      </span>
+    </span>
 
-      <span>
+    <span>
         <h3 id='requests-header'>Potential Lenders</h3>
         <div id='requests-container'>
           {% for donation in donation_list %}
@@ -86,11 +90,12 @@
           </table>
           {% endfor %}
         </div>
-      </span>
+    </span>
+
       <form method='post' action='/projectview?id={{current_project_id}}'>
         <input type='hidden' name='action' value='donate'/>
         <button type='submit' id='donate_button'>Donate</button>
       </form>
-    </div>
+    </div><div id='whitebg'>.</div>
   </body>
 </html>
