@@ -186,13 +186,14 @@ class ProjectViewHandler(webapp2.RequestHandler):
 
         # Variables to pass into the project-view.html page
         template_vars = {
-            'current_user_id' : user.user_id(),
+            'current_user_id' : str(user.user_id()),
             'current_project_id' : current_project_id,
             'project_title' : current_project.title,
             'area' : current_project.area,
             'date' : current_project.date,
             'description': current_project.description,
             'owner' : str(owner_account.name),
+            'owner_id' : str(owner_account.id),
             'request' : current_project.time_requested,
             #------------viewer info--------------
             'donation_list' : donation_list,

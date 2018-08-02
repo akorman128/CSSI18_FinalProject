@@ -70,19 +70,22 @@
                 Deposit from: {{donation.nickname}}
               </td>
                 <td class='render_donor'>
+                  {% if owner_id == current_user_id %}
                     <form method="post" action='/projectview?id={{current_project_id}}'>
                       <input type='hidden' name='action' value='accept'/>
                       <input type='hidden' name='donor_id' value='{{donation.user_id}}'/>
                       <button class='button one'>Accept</button>
                     </form>
+                  {% endif %}
                 </td>
                 <td class='render_donor'>
-
-                  <form method="post" action='/projectview?id={{current_project_id}}' >
-                    <input type='hidden' name='action' value='reject'/>
-                    <input type='hidden' name='donor_id' value='{{donation.user_id}}'/>
-                    <button class='button two'>Reject</button>
-                  </form>
+                  {% if owner_id == current_user_id %}
+                    <form method="post" action='/projectview?id={{current_project_id}}' >
+                      <input type='hidden' name='action' value='reject'/>
+                      <input type='hidden' name='donor_id' value='{{donation.user_id}}'/>
+                      <button class='button two'>Reject</button>
+                    </form>
+                  {% endif %}
                 </td>
                 <td class='render_donor' >
                   {{owner_email}}
@@ -92,11 +95,12 @@
           {% endfor %}
         </div>
     </span>
-
-      <form method='post' action='/projectview?id={{current_project_id}}'>
-        <input type='hidden' name='action' value='donate'/>
-        <button type='submit' id='donate_button'>Donate</button>
-      </form>
+      {% if owner_id != current_user_id %}
+        <form method='post' action='/projectview?id={{current_project_id}}'>
+          <input type='hidden' name='action' value='donate'/>
+          <button type='submit' id='donate_button'>Donate</button>
+        </form>
+      {% endif %}
     </div>
 
     <div id='whitebg'>.</div>
