@@ -134,7 +134,6 @@ class CreateProjectHandler(webapp2.RequestHandler):
             'logout': logout_url,
             'current_user_id': user.user_id(),
         }
-        self.response.write(user.user_id())
         # renders create page
         create_template = JINJA_ENVIRONMENT.get_template('templates/html/create.html')
         self.response.write(create_template.render(template_vars))
