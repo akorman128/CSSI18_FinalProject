@@ -137,7 +137,6 @@ class CreateProjectHandler(webapp2.RequestHandler):
             'logout': logout_url,
             'current_user_id': user.user_id(),
         }
-        self.response.write(user.user_id())
         # renders create page
         create_template = JINJA_ENVIRONMENT.get_template('templates/html/create.html')
         self.response.write(create_template.render(template_vars))
@@ -197,6 +196,7 @@ class ProjectViewHandler(webapp2.RequestHandler):
             'request' : current_project.time_requested,
             #------------viewer info--------------
             'donation_list' : donation_list,
+            'logout': logout_url,
             }
 
             # render template
@@ -336,6 +336,7 @@ class ExploreQueryHandler(webapp2.RequestHandler):
         template_vars = {
             'list_projects' : list_projects,
             'current_user_id' : user.user_id(),
+            'logout': logout_url,
         }
 
         # render template
