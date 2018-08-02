@@ -75,6 +75,7 @@
                 <td class='render_donor'>
                   <form method="post" action='/projectview?id={{current_project_id}}' >
                     <input type='hidden' name='action' value='reject'/>
+                    <input type='hidden' name='donor_id' value='{{donation.user_id}}'/>
                     <button class='button two'>Reject</button>
                   </form>
                 </td>

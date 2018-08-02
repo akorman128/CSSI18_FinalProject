@@ -199,8 +199,31 @@ class ProjectViewHandler(webapp2.RequestHandler):
         #owner = Account.get_by_id(owner_id)
         owner_account = Account.query(Account.id == owner_id).fetch()[0]
 
+        #---------------------------------------------
+        if(self.request.get('action') == 'reject'):
+            # deletes all other users that aren't accepted
+            donation_list = Donation.query().fetch()
+            for donor in donation_list:
+                if donor.user_id == self.request.get('donor_id'):
+                    donor.key.delete()
 
+            # Variables to pass into the project-view.html page
+            template_vars = {
+                'current_project_id' : current_project_id,
+                'project_title' : current_project.title,
+                'area' : current_project.area,
+                'date' : current_project.date,
+                'description': current_project.description,
+                'owner' : str(owner_account.name),
+                'request' : current_project.time_requested,
+                #------------viewer info--------------
+                'donation_list' : donation_list,
+                }
 
+            # render template
+            profile_template = JINJA_ENVIRONMENT.get_template('templates/html/project-view.html')
+            # passes variable dictionary
+            self.response.write(profile_template.render(template_vars))
         #---------------------------------------------
 
         if(self.request.get('action') == 'accept'):
@@ -236,6 +259,8 @@ class ProjectViewHandler(webapp2.RequestHandler):
             profile_template = JINJA_ENVIRONMENT.get_template('templates/html/project-view.html')
             # passes variable dictionary
             self.response.write(profile_template.render(template_vars))
+
+        #---------------------------------------------
 
         def checkPermission():
             donation_list = Donation.query().fetch()
