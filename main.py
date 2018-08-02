@@ -23,7 +23,7 @@ def getUserAccount():
     # If no account exists, make one
     if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
         # create user object
-        new_user = Account(id = user.user_id(), points = 0, name = nickname)
+        new_user = Account(id = user.user_id(), points = 0, email = user.email(), name = nickname)
         # update database and returns user key
         new_user_key = new_user.put()
 
@@ -35,6 +35,7 @@ class Account(ndb.Model):
     id = ndb.StringProperty()
     points = ndb.FloatProperty()
     name = ndb.StringProperty()
+    email = ndb.StringProperty()
 
 # many-to-one relationship with Account; one-to-many relationship with Donation
 class Project(ndb.Model):
@@ -172,10 +173,6 @@ class ProjectViewHandler(webapp2.RequestHandler):
             'request' : current_project.time_requested,
             #------------viewer info--------------
             'donation_list' : donation_list,
-                #
-                # 'nickname': nickname,
-                # 'logout': logout_url,
-                # 'points': Account.query(Account.id == user.user_id()).fetch()[0].points
             }
 
             # render template
@@ -253,6 +250,7 @@ class ProjectViewHandler(webapp2.RequestHandler):
                 'request' : current_project.time_requested,
                 #------------viewer info--------------
                 'donation_list' : donation_list,
+                'owner_email' : owner_account.email,
                 }
 
             # render template
