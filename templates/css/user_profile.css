@@ -117,7 +117,7 @@ nav {
   position: absolute;
   height: 440px;
   width: 300px;
-
+  font-size: 150%;
   border: black solid 2px;
 }
 
