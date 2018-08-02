@@ -107,8 +107,10 @@ class UserProfileHandler(webapp2.RequestHandler):
             create_bio.put()
         current_bio = Bio.query(Bio.user_id == user.user_id()).fetch()[0].bio
 
+
         # Variables to pass into the user_profile.html page
         template_vars = {
+            'current_user_id' : user.user_id(),
             'nickname': user_profile_object.name,
             'logout': logout_url,
             'logout_url': logout_url,
@@ -126,10 +128,13 @@ class UserProfileHandler(webapp2.RequestHandler):
 
 class CreateProjectHandler(webapp2.RequestHandler):
     def get(self):
+        user, nickname, logout_url, greeting = getUserAccount()
         logout_url = users.create_logout_url('/')
         template_vars ={
-            'logout': logout_url
+            'logout': logout_url,
+            'current_user_id': user.user_id(),
         }
+        self.response.write(user.user_id())
         # renders create page
         create_template = JINJA_ENVIRONMENT.get_template('templates/html/create.html')
         self.response.write(create_template.render(template_vars))
@@ -150,6 +155,8 @@ class CreateProjectHandler(webapp2.RequestHandler):
         new_project = Project(title = self.request.get('title'), area = self.request.get('area'), \
         description = self.request.get('description'), date = new_date, user_id = current_user_id, \
         time_requested = float(self.request.get('time_requested')))
+
+
 
         # save the new project into the database and return its key
         new_project_key = new_project.put()
@@ -176,6 +183,7 @@ class ProjectViewHandler(webapp2.RequestHandler):
 
         # Variables to pass into the project-view.html page
         template_vars = {
+            'current_user_id' : user.user_id(),
             'current_project_id' : current_project_id,
             'project_title' : current_project.title,
             'area' : current_project.area,
@@ -229,7 +237,7 @@ class ProjectViewHandler(webapp2.RequestHandler):
                 #------------viewer info--------------
                 'donation_list' : donation_list,
                 }
-            
+
 
 
             # render template
@@ -323,6 +331,7 @@ class ExploreQueryHandler(webapp2.RequestHandler):
 
         template_vars = {
             'list_projects' : list_projects,
+            'current_user_id' : user.user_id(),
         }
 
         # render template
@@ -358,7 +367,6 @@ class ExploreQueryHandler(webapp2.RequestHandler):
 
 
         template_vars = {
-            # 'error' : error_message,
             'list_projects' : list_projects,
         }
         profile_template = JINJA_ENVIRONMENT.get_template('templates/html/explore-projects.html')
