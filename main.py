@@ -50,6 +50,8 @@ class Project(ndb.Model):
     description = ndb.StringProperty()
     user_id = ndb.StringProperty()
     time_requested = ndb.FloatProperty()
+    donor_id = ndb.StringProperty()
+
 
 # many-to-one relationship with Project; many-to-one relationship with Account
 class Donation(ndb.Model):
@@ -156,7 +158,7 @@ class CreateProjectHandler(webapp2.RequestHandler):
         # creates new project object
         new_project = Project(title = self.request.get('title'), area = self.request.get('area'), \
         description = self.request.get('description'), date = new_date, user_id = current_user_id, \
-        time_requested = float(self.request.get('time_requested')))
+        time_requested = float(self.request.get('time_requested')), donor_id='')
 
 
 
@@ -183,6 +185,7 @@ class ProjectViewHandler(webapp2.RequestHandler):
 
         donation_list = Donation.query(Donation.project_id == str(current_project_id)).fetch()
 
+
         # Variables to pass into the project-view.html page
         template_vars = {
             'current_user_id' : str(user.user_id()),
@@ -195,9 +198,12 @@ class ProjectViewHandler(webapp2.RequestHandler):
             'owner_id' : str(owner_account.id),
             'request' : current_project.time_requested,
             #------------viewer info--------------
+            'project_donor' : current_project.donor_id,
+            'owner_email' : owner_account.email,
             'donation_list' : donation_list,
             'logout': logout_url,
             }
+
 
             # render template
         profile_template = JINJA_ENVIRONMENT.get_template('templates/html/project-view.html')
@@ -251,7 +257,14 @@ class ProjectViewHandler(webapp2.RequestHandler):
         #---------------------------------------------
 
         if(self.request.get('action') == 'accept'):
+
+
             donor_account = Account.query(Account.id == self.request.get('donor_id')).fetch()[0]
+
+            current_project.donor_id = str(donor_account.id)
+            current_project.put()
+
+
             # add time points to donor
             donor_account.points = float(donor_account.points) + float(current_project.time_requested)
             donor_account.put()
@@ -266,6 +279,8 @@ class ProjectViewHandler(webapp2.RequestHandler):
                 if donor.user_id != donor_account.id:
                     donor.key.delete()
 
+
+
             # Variables to pass into the project-view.html page
             template_vars = {
                 'current_project_id' : current_project_id,
@@ -274,11 +289,15 @@ class ProjectViewHandler(webapp2.RequestHandler):
                 'date' : current_project.date,
                 'description': current_project.description,
                 'owner' : str(owner_account.name),
+                'owner_id' : owner_account.id,
+                'current_user_id': str(user.user_id()),
                 'request' : current_project.time_requested,
                 #------------viewer info--------------
                 'donation_list' : donation_list,
                 'owner_email' : owner_account.email,
+                'project_donor' : current_project.donor_id,
                 }
+
 
             # render template
             profile_template = JINJA_ENVIRONMENT.get_template('templates/html/project-view.html')
