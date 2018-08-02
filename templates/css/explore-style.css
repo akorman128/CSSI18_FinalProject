@@ -79,6 +79,7 @@ nav {
 
 #query-container{
   border-top: solid 2px lightgrey;
+  margin-left: 2px;
   width: 60%;
   margin-top: 74px;
   position: absolute;

@@ -1,28 +1,45 @@
 @import url(https://fonts.googleapis.com/css?family=Hind+Vadodara);
-
+@import url(https://fonts.googleapis.com/css?family=Montserrat+Alternates);
 body{
-  font-family:  'Hind Vadodara';
+  background-image: url("https://static1.squarespace.com/static/51c66a03e4b04f91946712b2/t/53ba4eace4b074d7aaf6378f/1404718765835/?format=2500w");
+  background-size: 120%;
+  margin-top:50px;
+  font-family:  'Montserrat Alternates';
   color: cornflowerblue;
+}
+
+
+.centered {
+  margin-left: 20%;
+  margin-right: auto;
+}
+
+.logo {
+  font-family: 'Montserrat Alternates';
+  font-size: 40px;
+  color: white;
+  position: absolute;
+  margin-left: 5%;
+  margin-top: 21px;
 }
 
 a {
   color: white;
   text-decoration: none;
-
 }
 
 a:hover {
-  background-color: cornflowerblue;
+
   color: white;
 }
 
 nav {
-  background-color: royalblue;
-  border-bottom: grey 4px solid;
-
-  width: 100%;
+  background-color: #45818e;
+  border-bottom: darkgrey 7px solid;
+  border-radius: 4px;
+  width: 60%;
   height: 70px;
-  position: fixed;
+  position: absolute;
 }
 
 #whitetext{
@@ -31,25 +48,30 @@ nav {
 /* nav bar style */
 #search {
   position:absolute;
-  margin-top: 25px;
-  margin-left: 30px;
+  margin-top: 45px;
+  margin-left: 750px;
   height: 100px;
+  width: 90px;
 }
 
 #nav-container{
-  margin-left: 60%;
+  margin-left: 35%;
   position: absolute;
-  margin-top: 40px;
+  margin-top: 38px;
   z-index: 1;
-
   font-weight: bold;
   color: white;
 }
 
 .nav-button{
+  border-radius: 5px;
+  font-family: 'Montserrat Alternates';
   font-size: 20px;
   text-align: center;
   width: 100px;
+}
+.nav-button:hover{
+  background-color: #96C9D4;
 }
 
 /* style for pertinent user info */
@@ -57,17 +79,17 @@ nav {
   margin-top: 100px;
   margin-left: 15px;
   position: absolute;
-  width: 96.5%;
+  width: 57.5%;
   height: 200px;
   border: black solid 2px;
 }
 
 #circle-container {
-  background: cornflowerblue;
+  background: #88A6C8;
   width: 150px;
   height: 150px;
   margin-top: 25px;
-  margin-left: 350px;
+  margin-left: 100px;
   border-radius: 75px;
   border: 2px solid lightblue; }
 
@@ -111,9 +133,12 @@ nav {
 #project-container{
   margin-left: 350px;
   margin-top: 350px;
-  width: 73.3%;
+  height: 20%;
+  width: 32%;
   position: absolute;
   border: black solid 2px;
+  padding: 15px;
+  overflow: scroll;
 }
 
 #donation-header{
@@ -126,9 +151,11 @@ nav {
 #donation-container{
   margin-left: 350px;
   margin-top: 590px;
-  width: 73.3%;
+  height: 20%;
+  width: 32%;
   position: absolute;
   border: black solid 2px;
+  overflow: scroll;
 }
 
 #edit-bio{
@@ -171,7 +198,9 @@ overflow:scroll;
   border-collapse: collapse;
   display: table;
   width: 100%;
+  overflow: scroll;
 }
+
 
 #donation-table{
   border: '1px solid black';
@@ -192,16 +221,14 @@ overflow:scroll;
   transition-duration: .6s;
 }
 
-#project-container {
-  padding: 15px;
-}
 
 #donation-container {
   padding: 15px;
 }
 
 #project-container tr:hover{
-  background-color: lightgrey
+  background-color: lightgrey;
+
 }
 
 #donation-container tr:hover{
@@ -210,4 +237,20 @@ overflow:scroll;
 
 #bio {
   width:100%;
+}
+
+#whitebg {
+  background-color: #FEFEFE;
+  border-radius: 8px;
+  height: 900px;
+  overflow: scroll;
+  width: 60%;
+  margin-bottom: 10%;
+  z-index:-100;
+  position: absolute;
+}
+
+#foreground {
+  z-index:100;
+
 }
