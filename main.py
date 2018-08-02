@@ -70,10 +70,12 @@ class UserProfileHandler(webapp2.RequestHandler):
 
         user, nickname, logout_url, greeting = getUserAccount()
 
+        user_profile_id = str(self.request.get('id'))
+        user_profile_object =  Account.query(Account.id == user_profile_id).fetch()[0]
+
         # Find all the projects & donations belonging to the current user
-        current_user_id = str(user.user_id())
-        list_projects = Project.query(Project.user_id == current_user_id).fetch()
-        list_donations = Donation.query(Donation.user_id == current_user_id).fetch()
+        list_projects = Project.query(Project.user_id == user_profile_id).fetch()
+        list_donations = Donation.query(Donation.user_id == user_profile_id).fetch()
 
         donation_time = {}
         donation_area = {}
@@ -106,10 +108,10 @@ class UserProfileHandler(webapp2.RequestHandler):
 
         # Variables to pass into the user_profile.html page
         template_vars = {
-            'nickname': nickname,
+            'nickname': user_profile_object.name,
             'logout': logout_url,
             'logout_url': logout_url,
-            'points': Account.query(Account.id == user.user_id()).fetch()[0].points,
+            'points': user_profile_object.points,
             'list_projects': list_projects,
             'list_of_donation_dicts': list_of_donation_dicts,
             'current_bio': current_bio,
@@ -202,7 +204,6 @@ class ProjectViewHandler(webapp2.RequestHandler):
         #current_project = Project.get_by_id(current_project_id).fetch()
 
         owner_id = str(current_project.user_id)
-        #owner = Account.get_by_id(owner_id)
         owner_account = Account.query(Account.id == owner_id).fetch()[0]
 
         #---------------------------------------------
@@ -221,10 +222,14 @@ class ProjectViewHandler(webapp2.RequestHandler):
                 'date' : current_project.date,
                 'description': current_project.description,
                 'owner' : str(owner_account.name),
+                'owner_id' : owner_account.name,
+                'current_user_id': user_id,
                 'request' : current_project.time_requested,
                 #------------viewer info--------------
                 'donation_list' : donation_list,
                 }
+            
+
 
             # render template
             profile_template = JINJA_ENVIRONMENT.get_template('templates/html/project-view.html')
@@ -273,7 +278,6 @@ class ProjectViewHandler(webapp2.RequestHandler):
             donation_list = Donation.query().fetch()
             for donation in donation_list:
                 if (donation.user_id == user_id):
-                    self.response.write("Can't donate twice")
                     return False
                 else:
                     new_donation = Donation(user_id = str(user_id), project_id = str(current_project_id), nickname = nickname)
