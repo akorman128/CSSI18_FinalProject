@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../css/user_profile.css" type='text/css'/>
   </head>
 
-  <body>
+  <body class='centered'>
 
     <nav>
       <form>
@@ -25,12 +25,15 @@
           <td class='nav-button'>
             <a href='/user'>Profile</a>
           </td>
+
           <td class='nav-button'>
             <a href="{{logout}}">Logout</a>
           </td>
         </tr>
       </table>
+      <div class='logo'>b<span style="color: #a2c4c9">/</span>lend<div>
     </nav>
+
 
 <!-- Includes user info and time balance -->
 
@@ -100,6 +103,7 @@
         <a id="submit">Submit</a>
       </form>
     </div>
+    </div><div id='whitebg'>.</div>
     <script>
       function popUp() {
         document.getElementById('edit-form').style.display = "block";
