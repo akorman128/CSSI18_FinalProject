@@ -196,6 +196,7 @@ class ProjectViewHandler(webapp2.RequestHandler):
             'request' : current_project.time_requested,
             #------------viewer info--------------
             'donation_list' : donation_list,
+            'logout': logout_url,
             }
 
             # render template
@@ -335,6 +336,7 @@ class ExploreQueryHandler(webapp2.RequestHandler):
         template_vars = {
             'list_projects' : list_projects,
             'current_user_id' : user.user_id(),
+            'logout': logout_url,
         }
 
         # render template
