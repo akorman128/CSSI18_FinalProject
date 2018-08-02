@@ -24,7 +24,7 @@ def getUserAccount():
     # If no account exists, make one
     if len(Account.query(Account.id == user.user_id()).fetch()) == 0:
         # create user object
-        new_user = Account(id = user.user_id(), points = 0, email = user.email(), name = nickname)
+        new_user = Account(id = str(user.user_id()), points = float(0), email = str(user.email()), name = str(nickname))
         # update database and returns user key
         new_user_key = new_user.put()
 
@@ -72,6 +72,8 @@ class UserProfileHandler(webapp2.RequestHandler):
         user, nickname, logout_url, greeting = getUserAccount()
 
         user_profile_id = str(self.request.get('id'))
+        if user_profile_id == '':
+            user_profile_id = user.user_id()
         user_profile_object =  Account.query(Account.id == user_profile_id).fetch()[0]
 
         # Find all the projects & donations belonging to the current user
@@ -85,22 +87,23 @@ class UserProfileHandler(webapp2.RequestHandler):
 
         list_of_donation_dicts = []
 
-        for donation in list_donations:
-            donation_dict = collections.OrderedDict({})
+        if len(list_donations) > 0:
+            for donation in list_donations:
+                donation_dict = collections.OrderedDict({})
 
-            project_id = int(donation.project_id)
+                project_id = int(donation.project_id)
 
-            hours = Project.get_by_id(project_id).time_requested
-            area = Project.get_by_id(project_id).area
-            project_title = Project.get_by_id(project_id).title
-            date = Project.get_by_id(project_id).date
+                hours = Project.get_by_id(project_id).time_requested
+                area = Project.get_by_id(project_id).area
+                project_title = Project.get_by_id(project_id).title
+                date = Project.get_by_id(project_id).date
 
-            donation_dict['time'] = hours
-            donation_dict['date'] = date
-            donation_dict['area'] = area
-            donation_dict['title'] = project_title
+                donation_dict['time'] = hours
+                donation_dict['date'] = date
+                donation_dict['area'] = area
+                donation_dict['title'] = project_title
 
-            list_of_donation_dicts.append(donation_dict)
+                list_of_donation_dicts.append(donation_dict)
 
         if len(Bio.query(Bio.user_id == user.user_id()).fetch()) == 0:
             create_bio = Bio(bio='', user_id=user.user_id())
