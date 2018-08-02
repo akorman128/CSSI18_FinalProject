@@ -33,6 +33,7 @@ def getUserAccount():
 
 class Bio(ndb.Model):
     bio = ndb.StringProperty()
+    user_id = ndb.StringProperty()
 
 # one-to-many relationship with Project; one-to-many relationship with Donation
 class Account(ndb.Model):
@@ -101,10 +102,10 @@ class UserProfileHandler(webapp2.RequestHandler):
 
             list_of_donation_dicts.append(donation_dict)
 
-        if len(Bio.query().fetch()) == 0:
-            create_bio = Bio(bio='')
+        if len(Bio.query(Bio.user_id == user.user_id()).fetch()) == 0:
+            create_bio = Bio(bio='', user_id=user.user_id())
             create_bio.put()
-        current_bio = Bio.query().fetch()[0].bio
+        current_bio = Bio.query(Bio.user_id == user.user_id()).fetch()[0].bio
 
         # Variables to pass into the user_profile.html page
         template_vars = {
@@ -369,11 +370,12 @@ class BioHandler(webapp2.RequestHandler):
         pass
 
     def post(self):
-        if len(Bio.query().fetch()) == 0:
-            create_bio = Bio(bio='')
+        user, nickname, logout_url, greeting = getUserAccount()
+        if len(Bio.query(Bio.user_id == user.user_id()).fetch()) == 0:
+            create_bio = Bio(bio='', user_id=user.user_id())
             create_bio.put()
         new_bio = json.loads(self.request.body)
-        the_bio = Bio.query().fetch()[0]
+        the_bio = Bio.query(Bio.user_id == user.user_id()).fetch()[0]
         the_bio.bio = new_bio['bio']
         the_bio.put()
         #self.redirect('/user')
