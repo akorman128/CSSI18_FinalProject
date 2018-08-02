@@ -137,7 +137,7 @@
         popUp();
         formContent = document.getElementById('bio-container').value;
         if (formContent == null) {
-          formContent = ""
+          formContent = "{{current_bio}}"
         }
         document.getElementById('bio').append(formContent);
       });
