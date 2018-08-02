@@ -45,7 +45,7 @@
 
 <!-- bio -->
     <h3 id='bio-header'>Bio</h3>
-    <div id='bio-container'>
+    <div id='bio-container'>{{current_bio}}
 
 
     </div>
@@ -96,11 +96,21 @@
         <img id="close" src="https://static.thenounproject.com/png/261420-200.png" onclick ="div_hide()">
         <h2>Edit Profile</h2>
         <hr>
-        <textarea id="bio" name="message"></textarea><br>
+        <textarea id="bio" name="message" placeholder="Enter bio here..."></textarea><br>
         <a id="submit">Submit</a>
       </form>
     </div>
     <script>
+
+      function sendBio(bio) {
+        fetch('/biohandler', {
+          credentials: 'include',
+          method: 'post',
+          body: JSON.stringify(bio),
+        });
+       }
+
+
       function popUp() {
         document.getElementById('edit-form').style.display = "block";
       }
@@ -115,17 +125,17 @@
         console.log(bioContent)
         document.getElementById('bio-container').append(bioContent);
         div_hide();
+        var bio = {'bio': bioContent}
+        sendBio(bio);
       });
 
       document.getElementById('edit-bio').addEventListener('click', function(){
         popUp();
-        formContent = document.getElementById('bio-container').value
+        formContent = document.getElementById('bio-container').value;
         if (formContent == null) {
-          document.getElementById('bio').append("Enter bio here...")
+          formContent = ""
         }
-        else {
-          document.getElementById('bio').append(formContent);
-        }
+        document.getElementById('bio').append(formContent);
       });
 
     </script>

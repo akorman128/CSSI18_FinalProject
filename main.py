@@ -1,5 +1,6 @@
 import webapp2
 import jinja2
+import json
 import os
 import random
 import time
@@ -29,6 +30,9 @@ def getUserAccount():
 
     return user, nickname, logout_url, greeting
 
+
+class Bio(ndb.Model):
+    bio = ndb.StringProperty()
 
 # one-to-many relationship with Project; one-to-many relationship with Donation
 class Account(ndb.Model):
@@ -94,6 +98,10 @@ class UserProfileHandler(webapp2.RequestHandler):
 
             list_of_donation_dicts.append(donation_dict)
 
+        if len(Bio.query().fetch()) == 0:
+            create_bio = Bio(bio='')
+            create_bio.put()
+        current_bio = Bio.query().fetch()[0].bio
 
         # Variables to pass into the user_profile.html page
         template_vars = {
@@ -103,6 +111,7 @@ class UserProfileHandler(webapp2.RequestHandler):
             'points': Account.query(Account.id == user.user_id()).fetch()[0].points,
             'list_projects': list_projects,
             'list_of_donation_dicts': list_of_donation_dicts,
+            'current_bio': current_bio,
         }
 
         # render template
@@ -227,7 +236,6 @@ class ProjectViewHandler(webapp2.RequestHandler):
         self.response.write(profile_template.render(template_vars))
 
 
-
 class ExploreQueryHandler(webapp2.RequestHandler):
     def get(self):
         user, nickname, logout_url, greeting = getUserAccount()
@@ -279,6 +287,20 @@ class ExploreQueryHandler(webapp2.RequestHandler):
         self.response.write(profile_template.render(template_vars))
 
 
+class BioHandler(webapp2.RequestHandler):
+    def get(self):
+        pass
+
+    def post(self):
+        if len(Bio.query().fetch()) == 0:
+            create_bio = Bio(bio='')
+            create_bio.put()
+        new_bio = json.loads(self.request.body)
+        the_bio = Bio.query().fetch()[0]
+        the_bio.bio = new_bio['bio']
+        the_bio.put()
+        #self.redirect('/user')
+
 
 #the route mapping
 app = webapp2.WSGIApplication([
@@ -288,5 +310,6 @@ app = webapp2.WSGIApplication([
     ('/user', UserProfileHandler),
     ('/create', CreateProjectHandler),
     ('/explore', ExploreQueryHandler),
-    ('/projectview', ProjectViewHandler)
+    ('/projectview', ProjectViewHandler),
+    ('/biohandler', BioHandler)
 ], debug=True)
