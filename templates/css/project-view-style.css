@@ -76,9 +76,9 @@ nav {
 
 #header-container{
   margin-top: 100px;
-  margin-left: 15px;
+  margin-left: 9%;
   position: absolute;
-  width: 57.5%;
+  width: 700px;
   height: 200px;
   border: black solid 2px;
   background-color: white;
@@ -103,32 +103,30 @@ nav {
 
 #proj_name {
   color: black;
-  font-family: Arial;
   font-size: 35px;
-  width: 100%;
+  width: 80%;
   height: 100px;
   position: absolute;
   text-align: center;
   margin-top: 50px;
+  margin-left: 150px;
   /* margin-left: 55px; */
 }
 
 
 #proj_facts {
   color: black;
-  font-family: arial;
   font-size: 20px;
-
-  width: 100%;
+  margin-left: 37%;
+  width: 50%;
   height: 100px;
   position: absolute;
   text-align: center;
-  margin-top: 120px;
+  margin-top: 15%;
 }
 
 #description-header {
-  color: #6A92D8;
-  font-family: Arial;
+  /* color: #6A92D8; */
   position: absolute;
   margin-top: 40px;
 }
@@ -140,7 +138,7 @@ nav {
   border-color: black;
   border-style: solid;
   position: absolute;
-  width: 100%;
+  width: 700px;
   margin-top: 60px;
   min-height: 150px;
   max-height: 150px;
@@ -154,11 +152,13 @@ p {
 
 #requests-header{
   margin-top:510px;
+  margin-left: 9%;
 }
 
 #requests-container{
   height: 150px;
-  width: 850px;
+  width: 700px;
+  margin-left: 9%;
   border: black solid 2px;
   overflow-y: scroll;
   background-color: white;
@@ -225,7 +225,7 @@ p {
   border-radius: 20px;
 
   margin-top: 20px;
-  margin-left: 750px;
+  margin-left: 700px;
 
   color: royalblue;
   transition-duration: .6s;
@@ -236,19 +236,24 @@ p {
   background-color: royalblue;
 }
 
-/* #whitebg {
+#whitebg {
   background-color: #FEFEFE;
   border-radius: 8px;
-  height: 900px;
+  height: 800px;
   overflow: scroll;
   width: 60%;
   margin-bottom: 10%;
+  margin-top: 20%
   z-index: -100;
   position: absolute;
-} */
+}
 
 .foreground {
   position: absolute;
-  z-index:100;
+  z-index:1;
 
+}
+
+#foregroundnav {
+  z-index: 1000;
 }

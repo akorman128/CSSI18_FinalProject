@@ -9,7 +9,7 @@
 
   <body class='centered'>
 
-    <nav>
+    <nav id='foregroundnav'>
       <form>
         <!-- search bar -->
         <input id='search' type='search' placeholder='Search Users...'/>
@@ -37,7 +37,7 @@
 
 
     <span>
-      <div>
+      <div class='foreground'>
         <!-- header -->
         <div id='header-container' >
           <div id='proj_name'> {{project_title}} </div>
@@ -97,7 +97,9 @@
         <input type='hidden' name='action' value='donate'/>
         <button type='submit' id='donate_button'>Donate</button>
       </form>
-    </div><div id='whitebg'>.</div>
+    </div>
+
+    <div id='whitebg'>.</div>
 
     <script>
       function loadUser(el){
